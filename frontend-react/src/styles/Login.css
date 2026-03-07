@@ -1,0 +1,61 @@
+.login-container {
+  min-height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
+              url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=1470') no-repeat center center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+}
+
+.login-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  width: 100%;
+  max-width: 450px;
+  padding: 2rem;
+}
+
+.role-selector {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 2rem;
+}
+
+.role-btn {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff2f2;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.role-btn.active {
+  border-color: #00d26a;
+  color: #00d26a;
+}
+
+.form-control {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: white !important;
+  padding: 12px;
+}
+
+.btn-signin {
+  background-color: #00d26a;
+  border: none;
+  font-weight: bold;
+  padding: 12px;
+  box-shadow: 0 0 15px rgba(0, 210, 106, 0.4);
+}
+
+.btn-signin:hover {
+  background-color: #00b35a;
+}
