@@ -79,13 +79,23 @@ def register_user(request):
     serializer = UserSerializer(data=request.data)
 
     if serializer.is_valid():
-        user = serializer.save()
+
+        role = request.data.get("role", "member")
+
+        user = serializer.save(role=role)
+
+        # Only create profile if user is a member
+        if role == "member":
+            MemberProfile.objects.create(
+                user=user
+            )
+
         return Response({
             "message": "User registered successfully",
             "user": UserSerializer(user).data
-        }, status=status.HTTP_201_CREATED)
+        }, status=201)
 
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=400)
 
 
 @api_view(['POST'])
@@ -105,7 +115,8 @@ def login_user(request):
             "access_token": str(refresh.access_token),
             "refresh_token": str(refresh),
             "role": user.role,
-            "username": user.username
+            "username": user.username,
+            "email": user.email
         })
 
     return Response({"error": "Invalid credentials"}, status=401)

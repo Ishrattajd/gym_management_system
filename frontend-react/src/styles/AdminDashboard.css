@@ -1,0 +1,83 @@
+.dashboard-wrapper {
+  background-color: #0a0a0a;
+  color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+}
+
+.sidebar {
+  width: 260px;
+  background-color: #121212;
+  border-right: 1px solid #222;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  position: fixed;
+  height: 100vh;
+}
+
+.main-content {
+  margin-left: 260px;
+  flex-grow: 1;
+  padding: 40px;
+}
+
+.nav-item-custom {
+  padding: 12px 15px;
+  color: #888;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-bottom: 5px;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.nav-item-custom:hover, .nav-item-custom.active {
+  background: rgba(0, 210, 106, 0.1);
+  color: #00d26a;
+}
+
+.stat-card {
+  background: #181818;
+  border: 1px solid #222;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.stat-card.active-border {
+  border: 1px solid #00d26a;
+}
+
+.booking-item {
+  background: #1e1e1e;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.status-confirmed { background: rgba(0, 210, 106, 0.2); color: #00d26a; }
+.status-pending { background: rgba(255, 255, 255, 0.1); color: #888; }
+
+.custom-progress {
+  height: 8px;
+  background: #222;
+  border-radius: 10px;
+  margin-top: 8px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #00d26a;
+  border-radius: 10px;
+}

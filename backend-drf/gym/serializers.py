@@ -40,13 +40,30 @@ class UserSerializer(serializers.ModelSerializer):
 # -------------------------------
 class MemberProfileSerializer(serializers.ModelSerializer):
 
-    user = serializers.StringRelatedField(read_only=True)
+    username = serializers.CharField(source="user.username", read_only=True)
+    email = serializers.CharField(source="user.email", read_only=True)
+
+    plan_name = serializers.CharField(
+        source="membership_plan.name",
+        read_only=True
+    )
 
     class Meta:
         model = MemberProfile
-        fields = '__all__'
-
-
+        fields = [
+            "id",
+            "user",
+            "username",
+            "email",
+            "phone",
+            "age",
+            "height",
+            "weight",
+            "goal",
+            "membership_plan",
+            "plan_name",
+            "status",
+        ]
 # -------------------------------
 # TRAINER SERIALIZER
 # -------------------------------
@@ -72,25 +89,38 @@ class MembershipPlanSerializer(serializers.ModelSerializer):
 # -------------------------------
 class ClassScheduleSerializer(serializers.ModelSerializer):
 
-    trainer = serializers.StringRelatedField()
+    trainer_name = serializers.CharField(source="trainer.name", read_only=True)
 
     class Meta:
         model = ClassSchedule
-        fields = '__all__'
-
+        fields = [
+            "id",
+            "trainer",
+            "trainer_name",
+            "class_type",
+            "date",
+            "time",
+            "capacity",
+        ]
 
 # -------------------------------
 # BOOKING SERIALIZER
 # -------------------------------
 class BookingSerializer(serializers.ModelSerializer):
 
-    user = serializers.StringRelatedField(read_only=True)
-    class_schedule = serializers.StringRelatedField()
+    user_name = serializers.CharField(source="user.username", read_only=True)
+    class_name = serializers.CharField(source="class_schedule.class_type", read_only=True)
 
     class Meta:
         model = Booking
-        fields = '__all__'
-
+        fields = [
+            "id",
+            "user",
+            "user_name",
+            "class_schedule",
+            "class_name",
+            "status",
+        ]
 
 # -------------------------------
 # ATTENDANCE SERIALIZER
