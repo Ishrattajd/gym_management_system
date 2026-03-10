@@ -13,7 +13,7 @@ from .models import User
 from .models import (
     User,
     MemberProfile,
-    Trainer,
+    TrainerProfile,
     MembershipPlan,
     ClassSchedule,
     Booking,
@@ -44,7 +44,7 @@ class MemberProfileViewSet(viewsets.ModelViewSet):
 
 
 class TrainerViewSet(viewsets.ModelViewSet):
-    queryset = Trainer.objects.all()
+    queryset = TrainerProfile.objects.all()
     serializer_class = TrainerSerializer
 
 
@@ -57,6 +57,13 @@ class ClassScheduleViewSet(viewsets.ModelViewSet):
     queryset = ClassSchedule.objects.all()
     serializer_class = ClassScheduleSerializer
 
+    def perform_create(self, serializer):
+        trainer_profile = TrainerProfile.objects.get(user=self.request.user)
+        serializer.save(trainer=trainer_profile)
+
+    def perform_update(self, serializer):
+        trainer_profile = TrainerProfile.objects.get(user=self.request.user)
+        serializer.save(trainer=trainer_profile)
 
 class BookingViewSet(viewsets.ModelViewSet):
     queryset = Booking.objects.all()

@@ -1,0 +1,131 @@
+
+/* ===== TRAINER PAGE ===== */
+
+.trainer-page{
+padding:40px;
+background:#0b0b0b;
+min-height:100vh;
+color:#ffffff;
+}
+
+/* ===== PAGE HEADER ===== */
+
+.page-title{
+font-weight:900;
+letter-spacing:3px;
+font-size:32px;
+margin-bottom:4px;
+}
+
+.page-sub{
+color:#9ca3af;
+font-size:14px;
+}
+
+/* ===== ADD BUTTON ===== */
+
+.add-btn{
+background:#22c55e !important;
+border:none !important;
+font-weight:700;
+padding:10px 22px;
+border-radius:8px;
+letter-spacing:1px;
+}
+
+.add-btn:hover{
+background:#16a34a !important;
+}
+
+/* ===== CLASS CARD ===== */
+
+.class-card{
+background:#111111;
+border:1px solid #2b2b2b;
+border-radius:14px;
+padding:28px;
+transition:all 0.25s ease;
+}
+
+.class-card:hover{
+border-color:#22c55e;
+transform:translateY(-3px);
+}
+
+/* ===== BADGE ===== */
+
+.badge-class{
+background:#16a34a;
+font-size:12px;
+padding:6px 12px;
+border-radius:20px;
+font-weight:600;
+}
+
+/* ===== CLASS TITLE ===== */
+
+.class-title{
+margin-top:18px;
+font-weight:800;
+letter-spacing:1px;
+font-size:20px;
+}
+
+/* ===== CLASS INFO ===== */
+
+.class-info{
+color:#9ca3af;
+margin-top:10px;
+font-size:14px;
+}
+
+/* ===== BUTTONS ===== */
+
+.btn-outline-light{
+border:1px solid #3a3a3a;
+color:white;
+}
+
+.btn-outline-light:hover{
+background:#1f1f1f;
+}
+
+.btn-outline-danger{
+border:1px solid #ef4444;
+color:#ef4444;
+}
+
+.btn-outline-danger:hover{
+background:#ef4444;
+color:white;
+}
+
+/* ===== FORM CARD ===== */
+
+.form-card{
+background:#111111;
+border:1px solid #2b2b2b;
+border-radius:12px;
+}
+
+/* ===== INPUT FIELDS ===== */
+
+.form-control{
+background:#0f0f0f;
+border:1px solid #2b2b2b;
+color:white;
+}
+
+.form-control:focus{
+background:#0f0f0f;
+color:white;
+border-color:#22c55e;
+box-shadow:none;
+}
+
+/* placeholder text */
+
+.form-control::placeholder{
+color:#777;
+}
+

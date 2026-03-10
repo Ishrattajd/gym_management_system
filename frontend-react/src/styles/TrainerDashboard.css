@@ -1,0 +1,56 @@
+/* Custom Dark Theme Overrides */
+.bg-dark-custom { background-color: #0a0a0a !important; }
+.bg-card-custom { background-color: #141414 !important; }
+.bg-item-custom { background-color: #1c1c1c !important; }
+.border-gray-custom { border: 1px solid #2d2d2d !important; }
+
+.sidebar {
+    width: 280px;
+    height: 100vh;
+    border-right: 1px solid #2d2d2d;
+    position: fixed;
+}
+
+.main-content {
+    margin-left: 280px; /* Offset for the sidebar */
+    padding: 40px;
+    width: calc(100% - 280px);
+}
+
+.nav-link-custom {
+    color: #9ca3af;
+    padding: 12px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: 0.3s;
+}
+
+.nav-link-custom.active {
+    background-color: rgba(25, 135, 84, 0.15);
+    color: #198754;
+}
+
+.nav-link-custom:hover:not(.active) {
+    background-color: #2d2d2d;
+    color: white;
+}
+
+.stat-card-featured {
+    background-color: #0d1510 !important;
+    border: 1px solid #14321d !important;
+}
+
+.avatar-circle {
+    width: 40px;
+    height: 40px;
+    background-color: #052e16;
+    color: #4ade80;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: bold;
+}

@@ -60,22 +60,27 @@ class MemberProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+    
 
 
 # -------------------------------
 # TRAINER
 # -------------------------------
 
-class Trainer(models.Model):
+class TrainerProfile(models.Model):
 
-    name = models.CharField(max_length=100)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    phone = models.CharField(max_length=15, blank=True, null=True)
     specialization = models.CharField(max_length=100)
-    experience = models.IntegerField()
-    rating = models.FloatField()
+    experience = models.IntegerField(help_text="Years of experience")
+
+    bio = models.TextField(blank=True, null=True)
+
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.name
-
+        return self.user.username
 
 # -------------------------------
 # CLASS SCHEDULE
@@ -83,7 +88,7 @@ class Trainer(models.Model):
 
 class ClassSchedule(models.Model):
 
-    trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE)
+    trainer = models.ForeignKey(TrainerProfile, on_delete=models.CASCADE)
     date = models.DateField()
     time = models.TimeField()
     class_type = models.CharField(max_length=100)

@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import (
     User,
     MemberProfile,
-    Trainer,
+    TrainerProfile,
     MembershipPlan,
     ClassSchedule,
     Booking,
@@ -70,7 +70,7 @@ class MemberProfileSerializer(serializers.ModelSerializer):
 class TrainerSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Trainer
+        model = TrainerProfile
         fields = '__all__'
 
 
@@ -89,7 +89,7 @@ class MembershipPlanSerializer(serializers.ModelSerializer):
 # -------------------------------
 class ClassScheduleSerializer(serializers.ModelSerializer):
 
-    trainer_name = serializers.CharField(source="trainer.name", read_only=True)
+    trainer_name = serializers.CharField(source="trainer.user.username", read_only=True)
 
     class Meta:
         model = ClassSchedule
@@ -102,6 +102,8 @@ class ClassScheduleSerializer(serializers.ModelSerializer):
             "time",
             "capacity",
         ]
+
+        read_only_fields = ["trainer"]
 
 # -------------------------------
 # BOOKING SERIALIZER

@@ -12,6 +12,12 @@ import ManageBookings from "./components/admin/ManageBookings";
 import Members from "./components/admin/Members";
 
 import TrainerDashboard from "./components/dashboard/TrainerDashboard";
+import MyClasses from "./components/trainer/MyClasses";
+import TrainerBookings from "./components/trainer/TrainerBookings";
+import TrainerMembers from "./components/trainer/TrainerMembers";
+import TrainerProfile from "./components/trainer/TrainerProfile";
+
+
 import MemberDashboard from "./components/dashboard/MemberDashboard";
 
 function App() {
@@ -31,6 +37,12 @@ function App() {
 
 
         <Route path="/trainer-dashboard" element={<TrainerDashboard />} />
+        <Route path="/trainer/classes" element={<MyClasses />} />
+        <Route path="/trainer/bookings" element={<TrainerBookings />} />
+        <Route path="/trainer/members" element={<TrainerMembers />} />
+        <Route path="/trainer/profile" element={<TrainerProfile />} />
+
+
         <Route path="/member-dashboard" element={<MemberDashboard />} />
 
       </Routes>
