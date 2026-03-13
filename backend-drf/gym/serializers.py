@@ -132,12 +132,17 @@ class BookingSerializer(serializers.ModelSerializer):
 # -------------------------------
 class AttendanceSerializer(serializers.ModelSerializer):
 
-    user = serializers.StringRelatedField()
+    user_name = serializers.CharField(source="user.username", read_only=True)
 
     class Meta:
         model = Attendance
-        fields = '__all__'
-
+        fields = [
+            "id",
+            "user",
+            "user_name",
+            "date",
+            "status"
+        ]
 
 # -------------------------------
 # WORKOUT SUGGESTION SERIALIZER

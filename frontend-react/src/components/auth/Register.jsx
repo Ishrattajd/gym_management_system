@@ -31,7 +31,7 @@ const Register = () => {
         alert("Registration successful! Please login.");
         window.location.href = "/";
       } else {
-        alert(data.error || "Registration failed");
+        alert(JSON.stringify(data));
       }
     } catch (error) {
       console.error("Error:", error);

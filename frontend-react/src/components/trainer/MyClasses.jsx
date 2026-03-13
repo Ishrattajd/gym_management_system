@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import "../../styles/trainer.css";
 import "../../styles/TrainerDashboard.css";
@@ -13,7 +12,6 @@ const MyClasses = () => {
     class_type: "",
     date: "",
     time: "",
-    duration: "",
     capacity: ""
   });
 
@@ -80,9 +78,8 @@ const MyClasses = () => {
 
       if (!res.ok) {
         const errorData = await res.json();
-        console.log("Backend Error:", JSON.stringify(errorData, null, 2));
-        alert(JSON.stringify(errorData));
-        alert("Error saving class. Check console.");
+        console.log("Backend Error:", errorData);
+        alert("Error saving class");
         return;
       }
 
@@ -93,7 +90,6 @@ const MyClasses = () => {
         class_type: "",
         date: "",
         time: "",
-        duration: "",
         capacity: ""
       });
 
@@ -117,7 +113,6 @@ const MyClasses = () => {
       class_type: cls.class_type || "",
       date: cls.date || "",
       time: cls.time || "",
-      duration: cls.duration || "",
       capacity: cls.capacity || ""
     });
   };
@@ -183,7 +178,7 @@ const MyClasses = () => {
               />
             </div>
 
-            <div className="col-md-2">
+            <div className="col-md-3">
               <input
                 type="date"
                 className="form-control"
@@ -193,22 +188,12 @@ const MyClasses = () => {
               />
             </div>
 
-            <div className="col-md-2">
+            <div className="col-md-3">
               <input
                 type="time"
                 className="form-control"
                 name="time"
                 value={formData.time}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="col-md-2">
-              <input
-                className="form-control"
-                placeholder="Duration"
-                name="duration"
-                value={formData.duration}
                 onChange={handleChange}
               />
             </div>
@@ -250,11 +235,7 @@ const MyClasses = () => {
               <div className="d-flex justify-content-between">
 
                 <span className="badge bg-success badge-class">
-                  Strength
-                </span>
-
-                <span className="class-days">
-                  {cls.days || ""}
+                  {cls.class_type}
                 </span>
 
               </div>
@@ -264,8 +245,8 @@ const MyClasses = () => {
               </h4>
 
               <p className="class-info">
-                {cls.time} • {cls.duration} min
-                &nbsp;&nbsp; 👥 {cls.enrolled || 0}/{cls.capacity}
+                📅 {cls.date} • ⏰ {cls.time}
+                &nbsp;&nbsp; 👥 {cls.capacity}
               </p>
 
               <div className="d-flex gap-2 mt-3">
@@ -299,4 +280,3 @@ const MyClasses = () => {
 };
 
 export default MyClasses;
-

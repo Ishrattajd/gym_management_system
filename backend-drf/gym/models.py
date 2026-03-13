@@ -72,8 +72,10 @@ class TrainerProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     phone = models.CharField(max_length=15, blank=True, null=True)
-    specialization = models.CharField(max_length=100)
-    experience = models.IntegerField(help_text="Years of experience")
+
+    specialization = models.CharField(max_length=100, blank=True, null=True)
+
+    experience = models.IntegerField(default=0)
 
     bio = models.TextField(blank=True, null=True)
 
@@ -81,7 +83,6 @@ class TrainerProfile(models.Model):
 
     def __str__(self):
         return self.user.username
-
 # -------------------------------
 # CLASS SCHEDULE
 # -------------------------------
@@ -120,7 +121,13 @@ class Attendance(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField()
-    status = models.CharField(max_length=20)
+    status = models.CharField(
+    max_length=20,
+    choices=[
+        ("Present", "Present"),
+        ("Absent", "Absent")
+    ]
+    )
 
     def __str__(self):
         return f"{self.user.username} - {self.date}"

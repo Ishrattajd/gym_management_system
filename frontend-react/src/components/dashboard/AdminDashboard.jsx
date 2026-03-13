@@ -11,7 +11,7 @@ const AdminDashboard = () => {
   const [trainers, setTrainers] = useState(0);
   const [classes, setClasses] = useState(0);
   const [revenue, setRevenue] = useState(0);
-  const [bookings, setBookings] = useState([]);
+  const [plans, setPlans] = useState([]);
 
   useEffect(() => {
     fetchDashboardData();
@@ -38,12 +38,10 @@ const AdminDashboard = () => {
       const classesData = await classesRes.json();
       setClasses(classesData.length);
 
-      const bookingsRes = await fetch("http://127.0.0.1:8000/api/bookings/", { headers });
-      const bookingsData = await bookingsRes.json();
-      setBookings(bookingsData.slice(0,3));
-
       const plansRes = await fetch("http://127.0.0.1:8000/api/plans/", { headers });
       const plansData = await plansRes.json();
+
+      setPlans(plansData.slice(0,3));
 
       let totalRevenue = 0;
       plansData.forEach(plan => {
@@ -75,10 +73,8 @@ const AdminDashboard = () => {
 
         <nav className="flex-grow-1">
           <a href="#" className="nav-item-custom active">Dashboard</a>
-          <a href="/admin/trainers" className="nav-item-custom">Manage Trainers</a>
           <a href="/admin/plans" className="nav-item-custom">Manage Plans</a>
           <a href="/admin/classes" className="nav-item-custom">Schedules</a>
-          <a href="/admin/bookings" className="nav-item-custom">Bookings</a>
           <a href="/admin/members" className="nav-item-custom">Members</a>
         </nav>
 
@@ -155,18 +151,18 @@ const AdminDashboard = () => {
 
         <div className="row g-4">
 
-          {/* Recent Bookings */}
+          {/* Recent Plans */}
           <div className="col-lg-7">
             <div className="stat-card h-100">
-              <h5 className="fw-bold mb-4 text-uppercase">Recent Bookings</h5>
+              <h5 className="fw-bold mb-4 text-uppercase">Recent Membership Plans</h5>
 
-              {bookings.map((booking,index)=>(
+              {plans.map((plan,index)=>(
                 <BookingItem
                   key={index}
-                  name={booking.member_name}
-                  class={booking.class_name}
-                  date={booking.date}
-                  status={booking.status}
+                  name={plan.name}
+                  class={`${plan.duration} days`}
+                  date={`₹${plan.price}`}
+                  status={"active"}
                 />
               ))}
 

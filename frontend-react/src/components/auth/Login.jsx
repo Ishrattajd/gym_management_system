@@ -107,6 +107,12 @@ const Login = () => {
               />
             </div>
 
+            <p className="text-end small mb-3">
+              <a href="/forgot-password" className="text-success text-decoration-none">
+                 Forgot Password?
+              </a>
+            </p>
+
             <button
               type="submit"
               className="btn btn-signin w-100 text-uppercase mb-3"

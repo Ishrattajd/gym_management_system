@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/TrainerDashboard.css";
+import "../../styles/trainer.css";
+import { CreditCard } from "lucide-react";
 import {
   LayoutDashboard,
   CalendarDays,
@@ -62,8 +64,13 @@ const MemberDashboard = () => {
       );
       const membersData = await membersRes.json();
 
-      if (membersData.length > 0) {
-        setMemberProfile(membersData[0]);
+      // find logged in member
+      const member = membersData.find(
+        (m) => m.username === username
+      );
+
+      if (member) {
+        setMemberProfile(member);
       }
 
     } catch (error) {
@@ -80,7 +87,10 @@ const MemberDashboard = () => {
 
   const sessionsThisWeek = bookings.length;
   const upcomingClasses = classes.slice(0, 2);
-  const recentAttendance = attendance.slice(0, 3);
+
+  const recentAttendance = attendance
+    .filter(a => a.user_name === username)
+    .slice(0, 3);
 
   return (
     <div className="container-fluid p-0 bg-dark-custom min-vh-100 d-flex">
@@ -127,10 +137,13 @@ const MemberDashboard = () => {
               <ClipboardList size={20}/> Profile
             </a>
 
+            <a href="/member/plans" className="nav-link-custom">
+              <CreditCard size={20}/> Plans
+            </a>
+
           </nav>
 
         </div>
-
 
         <div className="pt-4 border-top border-secondary">
 
@@ -163,7 +176,6 @@ const MemberDashboard = () => {
 
       </aside>
 
-
       {/* Main */}
 
       <main className="main-content">
@@ -179,7 +191,6 @@ const MemberDashboard = () => {
           </p>
 
         </header>
-
 
         {/* Stats */}
 
@@ -202,7 +213,6 @@ const MemberDashboard = () => {
 
           </div>
 
-
           <div className="col-md-3">
 
             <div className="card h-100 p-4 bg-card-custom border-gray-custom">
@@ -220,7 +230,6 @@ const MemberDashboard = () => {
 
           </div>
 
-
           <div className="col-md-3">
 
             <div className="card h-100 p-4 bg-card-custom border-gray-custom">
@@ -237,7 +246,6 @@ const MemberDashboard = () => {
             </div>
 
           </div>
-
 
           <div className="col-md-3">
 
@@ -257,7 +265,6 @@ const MemberDashboard = () => {
           </div>
 
         </div>
-
 
         {/* Lower Panels */}
 
@@ -308,7 +315,6 @@ const MemberDashboard = () => {
 
           </div>
 
-
           {/* Attendance */}
 
           <div className="col-md-6">
@@ -340,8 +346,14 @@ const MemberDashboard = () => {
 
                     </div>
 
-                    <span className="text-success fw-bold">
-                      present
+                    <span
+                      className={
+                        att.status.toLowerCase() === "present"
+                        ? "text-success fw-bold"
+                        : "text-danger fw-bold"
+                      }
+                    >
+                      {att.status}
                     </span>
 
                   </div>

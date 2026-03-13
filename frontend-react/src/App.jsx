@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
+import ForgotPassword from "./components/auth/ForgotPassword";
 
 import AdminDashboard from "./components/dashboard/AdminDashboard";
 import ManageTrainers from "./components/admin/ManageTrainers";
@@ -16,6 +17,7 @@ import MyClasses from "./components/trainer/MyClasses";
 import TrainerBookings from "./components/trainer/TrainerBookings";
 import TrainerMembers from "./components/trainer/TrainerMembers";
 import TrainerProfile from "./components/trainer/TrainerProfile";
+import TrainerAttendance from "./components/trainer/TrainerAttendence";
 
 
 import MemberDashboard from "./components/dashboard/MemberDashboard";
@@ -23,6 +25,7 @@ import MemberClasses from "./components/member/MemberClasses";
 import MemberBookings from "./components/member/MemberBookings";
 import MemberProfile from "./components/member/MemberProfile";
 import MemberAIWorkout from "./components/member/MemberAIWorkout";
+import MemberPlans from "./components/member/MemberPlans";
 
 function App() {
   return (
@@ -31,6 +34,7 @@ function App() {
 
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
 
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/admin/trainers" element={<ManageTrainers />} />
@@ -45,6 +49,7 @@ function App() {
         <Route path="/trainer/bookings" element={<TrainerBookings />} />
         <Route path="/trainer/members" element={<TrainerMembers />} />
         <Route path="/trainer/profile" element={<TrainerProfile />} />
+        <Route path="/trainer/attendance" element={<TrainerAttendance />} />
 
 
         <Route path="/member-dashboard" element={<MemberDashboard />} />
@@ -52,6 +57,7 @@ function App() {
         <Route path="/member/bookings" element={<MemberBookings />} />
         <Route path="/member/profile" element={<MemberProfile />} />
         <Route path="/member/workouts" element={<MemberAIWorkout />} />
+        <Route path="/member/plans" element={<MemberPlans />} />
 
       </Routes>
     </Router>
