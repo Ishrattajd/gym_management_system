@@ -19,6 +19,10 @@ import TrainerProfile from "./components/trainer/TrainerProfile";
 
 
 import MemberDashboard from "./components/dashboard/MemberDashboard";
+import MemberClasses from "./components/member/MemberClasses";
+import MemberBookings from "./components/member/MemberBookings";
+import MemberProfile from "./components/member/MemberProfile";
+import MemberAIWorkout from "./components/member/MemberAIWorkout";
 
 function App() {
   return (
@@ -44,6 +48,10 @@ function App() {
 
 
         <Route path="/member-dashboard" element={<MemberDashboard />} />
+        <Route path="/member/classes" element={<MemberClasses />} />
+        <Route path="/member/bookings" element={<MemberBookings />} />
+        <Route path="/member/profile" element={<MemberProfile />} />
+        <Route path="/member/workouts" element={<MemberAIWorkout />} />
 
       </Routes>
     </Router>

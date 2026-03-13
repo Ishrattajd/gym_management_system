@@ -1,14 +1,9 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework import status
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
-from .serializers import UserSerializer
-from .models import User
-
 
 from .models import (
     User,
@@ -65,9 +60,19 @@ class ClassScheduleViewSet(viewsets.ModelViewSet):
         trainer_profile = TrainerProfile.objects.get(user=self.request.user)
         serializer.save(trainer=trainer_profile)
 
+
 class BookingViewSet(viewsets.ModelViewSet):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
+
+    # 🔹 automatically attach logged in user
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    # 🔹 show only bookings of logged in user
+    def get_queryset(self):
+        user = self.request.user
+        return Booking.objects.filter(user=user)
 
 
 class AttendanceViewSet(viewsets.ModelViewSet):
@@ -91,11 +96,8 @@ def register_user(request):
 
         user = serializer.save(role=role)
 
-        # Only create profile if user is a member
         if role == "member":
-            MemberProfile.objects.create(
-                user=user
-            )
+            MemberProfile.objects.create(user=user)
 
         return Response({
             "message": "User registered successfully",

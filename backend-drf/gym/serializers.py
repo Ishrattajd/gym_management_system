@@ -124,6 +124,9 @@ class BookingSerializer(serializers.ModelSerializer):
             "status",
         ]
 
+        # 🔹 important fix
+        read_only_fields = ["user"]
+
 # -------------------------------
 # ATTENDANCE SERIALIZER
 # -------------------------------
