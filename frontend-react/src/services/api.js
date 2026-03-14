@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://gym-management-backend.onrender.com/api/",
+  baseURL: "https://gym-management-system-p5gh.onrender.com/api/",
 });
 
 // Attach token automatically
