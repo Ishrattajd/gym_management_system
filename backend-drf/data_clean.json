@@ -1,0 +1,1269 @@
+[
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2026-03-07T20:37:10.533Z",
+    "user": 1,
+    "content_type": 6,
+    "object_id": "1",
+    "object_repr": "gymadmin - 2026-03-07",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2026-03-07T20:38:12.076Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "1",
+    "object_repr": "amit",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2026-03-07T20:38:15.374Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "1",
+    "object_repr": "yoga - 2026-03-07",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2026-03-07T20:38:46.489Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "1",
+    "object_repr": "gymadmin - yoga - 2026-03-07",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 1,
+  "fields": {
+    "name": "Can add log entry",
+    "content_type": 1,
+    "codename": "add_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 2,
+  "fields": {
+    "name": "Can change log entry",
+    "content_type": 1,
+    "codename": "change_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 3,
+  "fields": {
+    "name": "Can delete log entry",
+    "content_type": 1,
+    "codename": "delete_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 4,
+  "fields": {
+    "name": "Can view log entry",
+    "content_type": 1,
+    "codename": "view_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 5,
+  "fields": {
+    "name": "Can add permission",
+    "content_type": 3,
+    "codename": "add_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 6,
+  "fields": {
+    "name": "Can change permission",
+    "content_type": 3,
+    "codename": "change_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 7,
+  "fields": {
+    "name": "Can delete permission",
+    "content_type": 3,
+    "codename": "delete_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 8,
+  "fields": {
+    "name": "Can view permission",
+    "content_type": 3,
+    "codename": "view_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 9,
+  "fields": {
+    "name": "Can add group",
+    "content_type": 2,
+    "codename": "add_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 10,
+  "fields": {
+    "name": "Can change group",
+    "content_type": 2,
+    "codename": "change_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 11,
+  "fields": {
+    "name": "Can delete group",
+    "content_type": 2,
+    "codename": "delete_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 12,
+  "fields": {
+    "name": "Can view group",
+    "content_type": 2,
+    "codename": "view_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 13,
+  "fields": {
+    "name": "Can add content type",
+    "content_type": 4,
+    "codename": "add_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 14,
+  "fields": {
+    "name": "Can change content type",
+    "content_type": 4,
+    "codename": "change_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 15,
+  "fields": {
+    "name": "Can delete content type",
+    "content_type": 4,
+    "codename": "delete_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 16,
+  "fields": {
+    "name": "Can view content type",
+    "content_type": 4,
+    "codename": "view_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 17,
+  "fields": {
+    "name": "Can add session",
+    "content_type": 5,
+    "codename": "add_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 18,
+  "fields": {
+    "name": "Can change session",
+    "content_type": 5,
+    "codename": "change_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 19,
+  "fields": {
+    "name": "Can delete session",
+    "content_type": 5,
+    "codename": "delete_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 20,
+  "fields": {
+    "name": "Can view session",
+    "content_type": 5,
+    "codename": "view_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 21,
+  "fields": {
+    "name": "Can add class schedule",
+    "content_type": 8,
+    "codename": "add_classschedule"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 22,
+  "fields": {
+    "name": "Can change class schedule",
+    "content_type": 8,
+    "codename": "change_classschedule"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 23,
+  "fields": {
+    "name": "Can delete class schedule",
+    "content_type": 8,
+    "codename": "delete_classschedule"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 24,
+  "fields": {
+    "name": "Can view class schedule",
+    "content_type": 8,
+    "codename": "view_classschedule"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 25,
+  "fields": {
+    "name": "Can add membership plan",
+    "content_type": 10,
+    "codename": "add_membershipplan"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 26,
+  "fields": {
+    "name": "Can change membership plan",
+    "content_type": 10,
+    "codename": "change_membershipplan"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 27,
+  "fields": {
+    "name": "Can delete membership plan",
+    "content_type": 10,
+    "codename": "delete_membershipplan"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 28,
+  "fields": {
+    "name": "Can view membership plan",
+    "content_type": 10,
+    "codename": "view_membershipplan"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 29,
+  "fields": {
+    "name": "Can add trainer",
+    "content_type": 11,
+    "codename": "add_trainer"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 30,
+  "fields": {
+    "name": "Can change trainer",
+    "content_type": 11,
+    "codename": "change_trainer"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 31,
+  "fields": {
+    "name": "Can delete trainer",
+    "content_type": 11,
+    "codename": "delete_trainer"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 32,
+  "fields": {
+    "name": "Can view trainer",
+    "content_type": 11,
+    "codename": "view_trainer"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 33,
+  "fields": {
+    "name": "Can add user",
+    "content_type": 12,
+    "codename": "add_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 34,
+  "fields": {
+    "name": "Can change user",
+    "content_type": 12,
+    "codename": "change_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 35,
+  "fields": {
+    "name": "Can delete user",
+    "content_type": 12,
+    "codename": "delete_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 36,
+  "fields": {
+    "name": "Can view user",
+    "content_type": 12,
+    "codename": "view_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 37,
+  "fields": {
+    "name": "Can add attendance",
+    "content_type": 6,
+    "codename": "add_attendance"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 38,
+  "fields": {
+    "name": "Can change attendance",
+    "content_type": 6,
+    "codename": "change_attendance"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 39,
+  "fields": {
+    "name": "Can delete attendance",
+    "content_type": 6,
+    "codename": "delete_attendance"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 40,
+  "fields": {
+    "name": "Can view attendance",
+    "content_type": 6,
+    "codename": "view_attendance"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 41,
+  "fields": {
+    "name": "Can add booking",
+    "content_type": 7,
+    "codename": "add_booking"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 42,
+  "fields": {
+    "name": "Can change booking",
+    "content_type": 7,
+    "codename": "change_booking"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 43,
+  "fields": {
+    "name": "Can delete booking",
+    "content_type": 7,
+    "codename": "delete_booking"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 44,
+  "fields": {
+    "name": "Can view booking",
+    "content_type": 7,
+    "codename": "view_booking"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 45,
+  "fields": {
+    "name": "Can add member profile",
+    "content_type": 9,
+    "codename": "add_memberprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 46,
+  "fields": {
+    "name": "Can change member profile",
+    "content_type": 9,
+    "codename": "change_memberprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 47,
+  "fields": {
+    "name": "Can delete member profile",
+    "content_type": 9,
+    "codename": "delete_memberprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 48,
+  "fields": {
+    "name": "Can view member profile",
+    "content_type": 9,
+    "codename": "view_memberprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 49,
+  "fields": {
+    "name": "Can add workout suggestion",
+    "content_type": 13,
+    "codename": "add_workoutsuggestion"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 50,
+  "fields": {
+    "name": "Can change workout suggestion",
+    "content_type": 13,
+    "codename": "change_workoutsuggestion"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 51,
+  "fields": {
+    "name": "Can delete workout suggestion",
+    "content_type": 13,
+    "codename": "delete_workoutsuggestion"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 52,
+  "fields": {
+    "name": "Can view workout suggestion",
+    "content_type": 13,
+    "codename": "view_workoutsuggestion"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 53,
+  "fields": {
+    "name": "Can add trainer profile",
+    "content_type": 14,
+    "codename": "add_trainerprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 54,
+  "fields": {
+    "name": "Can change trainer profile",
+    "content_type": 14,
+    "codename": "change_trainerprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 55,
+  "fields": {
+    "name": "Can delete trainer profile",
+    "content_type": 14,
+    "codename": "delete_trainerprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 56,
+  "fields": {
+    "name": "Can view trainer profile",
+    "content_type": 14,
+    "codename": "view_trainerprofile"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 1,
+  "fields": {
+    "app_label": "admin",
+    "model": "logentry"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 2,
+  "fields": {
+    "app_label": "auth",
+    "model": "group"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 3,
+  "fields": {
+    "app_label": "auth",
+    "model": "permission"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 4,
+  "fields": {
+    "app_label": "contenttypes",
+    "model": "contenttype"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 5,
+  "fields": {
+    "app_label": "sessions",
+    "model": "session"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 6,
+  "fields": {
+    "app_label": "gym",
+    "model": "attendance"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 7,
+  "fields": {
+    "app_label": "gym",
+    "model": "booking"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 8,
+  "fields": {
+    "app_label": "gym",
+    "model": "classschedule"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 9,
+  "fields": {
+    "app_label": "gym",
+    "model": "memberprofile"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 10,
+  "fields": {
+    "app_label": "gym",
+    "model": "membershipplan"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 11,
+  "fields": {
+    "app_label": "gym",
+    "model": "trainer"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 12,
+  "fields": {
+    "app_label": "gym",
+    "model": "user"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 13,
+  "fields": {
+    "app_label": "gym",
+    "model": "workoutsuggestion"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 14,
+  "fields": {
+    "app_label": "gym",
+    "model": "trainerprofile"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "d8dyz6u2lbjpkxkhanjqj7mod90oqm8q",
+  "fields": {
+    "session_data": ".eJxVjDEOgzAMAP_iuYpInABh7N43IDt2GtoKJAJT1b9XSAztene6N4y0b2Xcq67jJDCAhcsvY0pPnQ8hD5rvi0nLvK0TmyMxp63mtoi-rmf7NyhUCwyggpYCJrE-Wyuhb9C17DRrq4SZlHv2pA2mFCWGrsPMmWLq0LroHcPnCwSXOLY:1vyyMr:Ox3eTfFkGcOU_oNOe4K2nxfGZSRRJP4uS4nGnE-Rgmg",
+    "expire_date": "2026-03-21T20:35:21.476Z"
+  }
+},
+{
+  "model": "gym.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$abAWuZYIoPoJuVA17JoyOc$cUrA3uahD46hILhO16GvbprPwNuIDSPNj2kPo+Rwesw=",
+    "last_login": "2026-03-07T20:35:21.471Z",
+    "is_superuser": true,
+    "username": "gymadmin",
+    "first_name": "",
+    "last_name": "",
+    "email": "ishrattajd@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-03-07T20:31:24.621Z",
+    "role": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "gym.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$nlDtTU4vMEnrQEW2lPR5Hf$lMyEkgVIR6kvpBXGzGzX88JQbdBiw5fkvAzSSMyFXro=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "john",
+    "first_name": "",
+    "last_name": "",
+    "email": "john@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-07T21:08:19.436Z",
+    "role": "member",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "gym.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$6q1lM0Lmrk4W8NMoRI06IZ$QGpAvBB4rRwgsf6X8JV4u1LknL5i5WP6A3H0kuXdlqs=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "ishu",
+    "first_name": "",
+    "last_name": "",
+    "email": "ishu@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-08T06:35:28.525Z",
+    "role": "member",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "gym.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$MGT7dzGlYABecZWPtH4aRX$qRf9eb351zuRYlYcrS+h/zylZFeUsKlrmLzXaAdXrl4=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "aditya",
+    "first_name": "",
+    "last_name": "",
+    "email": "aditya@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-08T07:13:25.925Z",
+    "role": "admin",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "gym.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$49bRzD7e7nTHj5nd3oI25p$fqSetjfk+JKeBAOp6onAKe1wM5/b6QbEZQvI90Y8lcE=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "ishan",
+    "first_name": "",
+    "last_name": "",
+    "email": "ishan@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-09T16:02:13.813Z",
+    "role": "member",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "gym.user",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$TgN4TtaF2aDSmyr2JX3mIT$NvBiGAfzsu9htSbGUl277dsjDwDCo3nAyVWphZvFkpk=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "maddy",
+    "first_name": "",
+    "last_name": "",
+    "email": "maddy@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-09T18:43:22.101Z",
+    "role": "trainer",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "gym.user",
+  "pk": 7,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$3psS5lTQOHqRGCthwDcFk2$zjmxra4X5OCaHrTSExwl2oOtsBF2hUgLtdy/b4oAfek=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "sandy",
+    "first_name": "",
+    "last_name": "",
+    "email": "sandy@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-12T09:54:39.200Z",
+    "role": "member",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "gym.user",
+  "pk": 8,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$7h3jMS6WJFXRcO5nKC48yJ$S4Ny++klpLOjOQZOvk50VLRJk+K3UnHXn+rbE5aVtqs=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "simba",
+    "first_name": "",
+    "last_name": "",
+    "email": "simba@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-13T13:01:08.538Z",
+    "role": "member",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "gym.user",
+  "pk": 9,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$79mAAW8DFt4sQUh2ynVmeC$mERLxBzJy+XELmcxVeAI0cRAMp4brgHvS/9sNxBaJBM=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "lucy",
+    "first_name": "",
+    "last_name": "",
+    "email": "lucy@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-13T13:03:21.030Z",
+    "role": "member",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "gym.user",
+  "pk": 10,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$fbA4eezk7teBR9WfHyIaU7$z9LoYgHlcM2X/2Urrw7OqqQfdZ7aNI5RHXn8ubGIjz4=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "sam",
+    "first_name": "",
+    "last_name": "",
+    "email": "sam@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-13T14:08:18.531Z",
+    "role": "member",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "gym.user",
+  "pk": 11,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$1dRLdRT6iqvyBsqYxkuQyh$aQOk1wQVMQPq2HGiTOmJQ2ihR75F4CczfmkPqTDyQA0=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "joseph",
+    "first_name": "",
+    "last_name": "",
+    "email": "joseph@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-13T14:29:24.864Z",
+    "role": "member",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "gym.user",
+  "pk": 12,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$EGSPXjEJPbWMz3CHyeiywb$fbijit+8dSdMpictQngfe8QTVa2+O2vEoHRZxkezcnk=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "zain",
+    "first_name": "",
+    "last_name": "",
+    "email": "zain@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-13T14:30:58.414Z",
+    "role": "trainer",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "gym.user",
+  "pk": 13,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$gyUFF9Xv5yMOLpd1EoWXz4$P8Dt3NgOykra7Z9+9wqGR5YUZ5sKVBoGiQTruaLyDOY=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "asad",
+    "first_name": "",
+    "last_name": "",
+    "email": "asad@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-13T15:10:15.797Z",
+    "role": "trainer",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "gym.user",
+  "pk": 14,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$WoDJjlFr01jnhI1PRDti4T$KNk5avhuPsx9j28q4IPHXi3fh781Oz4f7PPbF5DTclE=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "adil",
+    "first_name": "",
+    "last_name": "",
+    "email": "adil@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-13T15:32:01.335Z",
+    "role": "trainer",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "gym.user",
+  "pk": 15,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$gDLxu9J4YF9Qc4KzEcY27T$D7MXZCXtGtTowm7N+vCXSVBVndE9U3jvTIWOJfcs5Gk=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "kim",
+    "first_name": "",
+    "last_name": "",
+    "email": "kim@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-15T18:53:58.149Z",
+    "role": "trainer",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "gym.membershipplan",
+  "pk": 6,
+  "fields": {
+    "name": "Basic",
+    "price": 999.0,
+    "duration": 30,
+    "features": "Gym access"
+  }
+},
+{
+  "model": "gym.membershipplan",
+  "pk": 7,
+  "fields": {
+    "name": "standard",
+    "price": 1999.0,
+    "duration": 90,
+    "features": "Gym access + Classes"
+  }
+},
+{
+  "model": "gym.membershipplan",
+  "pk": 8,
+  "fields": {
+    "name": "Premium",
+    "price": 3999.0,
+    "duration": 84,
+    "features": "Gym access + Classes + Trainer"
+  }
+},
+{
+  "model": "gym.memberprofile",
+  "pk": 1,
+  "fields": {
+    "user": 5,
+    "phone": null,
+    "age": null,
+    "height": null,
+    "weight": null,
+    "goal": null,
+    "membership_plan": null,
+    "status": "Active"
+  }
+},
+{
+  "model": "gym.memberprofile",
+  "pk": 2,
+  "fields": {
+    "user": 7,
+    "phone": "9876543210",
+    "age": 24,
+    "height": 170.0,
+    "weight": 57.0,
+    "goal": "build muscles",
+    "membership_plan": 7,
+    "status": "Active"
+  }
+},
+{
+  "model": "gym.memberprofile",
+  "pk": 3,
+  "fields": {
+    "user": 8,
+    "phone": "9876543210",
+    "age": 32,
+    "height": 176.0,
+    "weight": 88.0,
+    "goal": "wieght loss",
+    "membership_plan": 6,
+    "status": "Active"
+  }
+},
+{
+  "model": "gym.memberprofile",
+  "pk": 4,
+  "fields": {
+    "user": 9,
+    "phone": "1234567899",
+    "age": 16,
+    "height": 157.0,
+    "weight": 43.0,
+    "goal": "gain weight",
+    "membership_plan": 8,
+    "status": "Active"
+  }
+},
+{
+  "model": "gym.memberprofile",
+  "pk": 5,
+  "fields": {
+    "user": 10,
+    "phone": "1234567888",
+    "age": 43,
+    "height": 177.0,
+    "weight": 65.0,
+    "goal": "Muscle gain",
+    "membership_plan": 6,
+    "status": "Active"
+  }
+},
+{
+  "model": "gym.memberprofile",
+  "pk": 6,
+  "fields": {
+    "user": 11,
+    "phone": null,
+    "age": null,
+    "height": null,
+    "weight": null,
+    "goal": null,
+    "membership_plan": null,
+    "status": "Active"
+  }
+},
+{
+  "model": "gym.trainerprofile",
+  "pk": 1,
+  "fields": {
+    "user": 6,
+    "phone": "12345678888",
+    "specialization": "weight loss",
+    "experience": 6,
+    "bio": "weight loss expert intense",
+    "is_active": true
+  }
+},
+{
+  "model": "gym.trainerprofile",
+  "pk": 3,
+  "fields": {
+    "user": 15,
+    "phone": null,
+    "specialization": null,
+    "experience": 0,
+    "bio": null,
+    "is_active": true
+  }
+},
+{
+  "model": "gym.classschedule",
+  "pk": 2,
+  "fields": {
+    "trainer": 1,
+    "date": "2026-03-27",
+    "time": "20:30:00",
+    "class_type": "strength",
+    "capacity": 40
+  }
+},
+{
+  "model": "gym.classschedule",
+  "pk": 5,
+  "fields": {
+    "trainer": 1,
+    "date": "2026-03-28",
+    "time": "03:00:00",
+    "class_type": "weight lifting",
+    "capacity": 50
+  }
+},
+{
+  "model": "gym.classschedule",
+  "pk": 6,
+  "fields": {
+    "trainer": 3,
+    "date": "2026-03-27",
+    "time": "02:30:00",
+    "class_type": "weight loss intense",
+    "capacity": 20
+  }
+},
+{
+  "model": "gym.booking",
+  "pk": 4,
+  "fields": {
+    "user": 7,
+    "class_schedule": 2,
+    "status": "confirmed"
+  }
+},
+{
+  "model": "gym.booking",
+  "pk": 8,
+  "fields": {
+    "user": 7,
+    "class_schedule": 6,
+    "status": "confirmed"
+  }
+},
+{
+  "model": "gym.attendance",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "date": "2026-03-07",
+    "status": "present"
+  }
+},
+{
+  "model": "gym.attendance",
+  "pk": 2,
+  "fields": {
+    "user": 6,
+    "date": "2026-03-26",
+    "status": "Absent"
+  }
+},
+{
+  "model": "gym.attendance",
+  "pk": 3,
+  "fields": {
+    "user": 5,
+    "date": "2026-03-13",
+    "status": "Present"
+  }
+},
+{
+  "model": "gym.attendance",
+  "pk": 4,
+  "fields": {
+    "user": 7,
+    "date": "2026-03-13",
+    "status": "Absent"
+  }
+},
+{
+  "model": "gym.attendance",
+  "pk": 5,
+  "fields": {
+    "user": 5,
+    "date": "2026-03-13",
+    "status": "Present"
+  }
+},
+{
+  "model": "gym.attendance",
+  "pk": 6,
+  "fields": {
+    "user": 7,
+    "date": "2026-03-13",
+    "status": "Absent"
+  }
+},
+{
+  "model": "gym.attendance",
+  "pk": 7,
+  "fields": {
+    "user": 7,
+    "date": "2026-03-14",
+    "status": "Present"
+  }
+},
+{
+  "model": "gym.attendance",
+  "pk": 8,
+  "fields": {
+    "user": 7,
+    "date": "2026-03-15",
+    "status": "Present"
+  }
+},
+{
+  "model": "gym.attendance",
+  "pk": 9,
+  "fields": {
+    "user": 7,
+    "date": "2026-03-15",
+    "status": "Present"
+  }
+},
+{
+  "model": "gym.attendance",
+  "pk": 10,
+  "fields": {
+    "user": 7,
+    "date": "2026-03-15",
+    "status": "Absent"
+  }
+},
+{
+  "model": "gym.attendance",
+  "pk": 11,
+  "fields": {
+    "user": 7,
+    "date": "2026-03-15",
+    "status": "Present"
+  }
+},
+{
+  "model": "gym.attendance",
+  "pk": 12,
+  "fields": {
+    "user": 7,
+    "date": "2026-03-15",
+    "status": "Present"
+  }
+},
+{
+  "model": "gym.attendance",
+  "pk": 13,
+  "fields": {
+    "user": 7,
+    "date": "2026-03-16",
+    "status": "Present"
+  }
+}
+]
