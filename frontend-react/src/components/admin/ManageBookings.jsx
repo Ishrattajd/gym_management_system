@@ -5,12 +5,21 @@ import {
   updateBooking,
   deleteBooking,
   fetchSchedules,
+  fetchMembers,
 } from "../../services/api";
+import "../../styles/AdminDashboard.css";
 import "../../styles/Admin.css";
 
 const ManageBookings = () => {
+
+  const username = localStorage.getItem("username");
+  const email = localStorage.getItem("email");
+
   const [bookings, setBookings] = useState([]);
   const [schedules, setSchedules] = useState([]);
+  const [members, setMembers] = useState([]);
+
+  const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [editingId, setEditingId] = useState(null);
 
@@ -20,20 +29,41 @@ const ManageBookings = () => {
     status: "confirmed",
   });
 
-  const loadBookings = async () => {
-    const data = await fetchBookings();
-    setBookings(data);
-  };
-
-  const loadSchedules = async () => {
-    const data = await fetchSchedules();
-    setSchedules(data);
-  };
-
   useEffect(() => {
     loadBookings();
     loadSchedules();
+    loadMembers();
   }, []);
+
+  const loadBookings = async () => {
+    try {
+      setLoading(true);
+      const data = await fetchBookings();
+      setBookings(data);
+    } catch (error) {
+      console.error("Failed to load bookings", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadSchedules = async () => {
+    try {
+      const data = await fetchSchedules();
+      setSchedules(data);
+    } catch (error) {
+      console.error("Failed to load schedules", error);
+    }
+  };
+
+  const loadMembers = async () => {
+    try {
+      const data = await fetchMembers();
+      setMembers(data);
+    } catch (error) {
+      console.error("Failed to load members", error);
+    }
+  };
 
   const handleChange = (e) => {
     setFormData({
@@ -89,88 +119,173 @@ const ManageBookings = () => {
 
   const handleDelete = async (id) => {
     if (window.confirm("Delete this booking?")) {
-      await deleteBooking(id);
-      loadBookings();
+      try {
+        await deleteBooking(id);
+        loadBookings();
+      } catch (error) {
+        console.error("Delete error:", error);
+      }
     }
   };
 
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = "/";
+  };
+
   return (
-    <div className="admin-page">
-      <div className="admin-header">
-        <div>
-          <h2 className="admin-title">Bookings</h2>
-          <p className="admin-subtitle">Manage class bookings</p>
+    <div className="dashboard-wrapper">
+
+      {/* SIDEBAR */}
+      <div className="sidebar">
+
+        <div className="mb-5">
+          <h4 className="fw-bold mb-0 text-white">THE FITNESS TRIBE</h4>
+          <small className="text-success">Admin Panel</small>
         </div>
 
-        <button
-          className="add-btn"
-          onClick={() => {
-            resetForm();
-            setEditingId(null);
-            setShowModal(true);
-          }}
-        >
-          Add Booking
-        </button>
+        <nav className="flex-grow-1">
+          <a href="/admin-dashboard" className="nav-item-custom">Dashboard</a>
+          <a href="/admin/plans" className="nav-item-custom">Manage Plans</a>
+          <a href="/admin/classes" className="nav-item-custom">Schedules</a>
+          <a href="/admin/members" className="nav-item-custom">Members</a>
+          <a href="/admin/bookings" className="nav-item-custom active">Bookings</a>
+          <a href="/admin/trainers" className="nav-item-custom">Manage Trainers</a>
+        </nav>
+
+        <div className="mt-auto border-top border-secondary pt-3">
+
+          <div className="d-flex align-items-center mb-3">
+
+            <div
+              className="bg-success rounded-circle me-2"
+              style={{ width: 35, height: 35, display: "grid", placeItems: "center" }}
+            >
+              {username ? username.substring(0, 2).toUpperCase() : "AU"}
+            </div>
+
+            <div>
+              <p className="mb-0 small fw-bold">{username}</p>
+              <p className="mb-0 smaller text-secondary" style={{ fontSize: "11px" }}>
+                {email}
+              </p>
+            </div>
+
+          </div>
+
+          <button
+            onClick={handleLogout}
+            className="text-danger text-decoration-none small"
+            style={{ background: "none", border: "none" }}
+          >
+            Sign Out
+          </button>
+
+        </div>
+
       </div>
 
-      <div className="table-container">
-        <table className="schedule-table">
-          <thead>
-            <tr>
-              <th>User</th>
-              <th>Class</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
+      {/* MAIN CONTENT */}
+      <div className="main-content">
 
-          <tbody>
-            {bookings.map((b) => (
-              <tr key={b.id}>
-                <td>{b.user_name}</td>
+        <div className="admin-header">
+          <div>
+            <h2 className="fw-bold mb-1">BOOKINGS</h2>
+            <p className="text-secondary mb-4">Manage class bookings</p>
+          </div>
 
-                <td>{b.class_name}</td>
+          <button
+            className="add-btn"
+            onClick={() => {
+              resetForm();
+              setEditingId(null);
+              setShowModal(true);
+            }}
+          >
+            Add Booking
+          </button>
+        </div>
 
-                <td>
-                  <span className="status-badge">{b.status}</span>
-                </td>
+        {/* BOOKINGS TABLE */}
+        <div className="table-container">
+          <table className="schedule-table">
 
-                <td>
-                  <button
-                    className="edit-btn"
-                    onClick={() => handleEdit(b)}
-                  >
-                    Edit
-                  </button>
-
-                  <button
-                    className="delete-btn"
-                    onClick={() => handleDelete(b.id)}
-                  >
-                    Delete
-                  </button>
-                </td>
+            <thead>
+              <tr>
+                <th>Member</th>
+                <th>Class</th>
+                <th>Status</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              {bookings.length === 0 ? (
+                <tr>
+                  <td colSpan="4">No bookings found</td>
+                </tr>
+              ) : (
+                bookings.map((b) => (
+                  <tr key={b.id}>
+
+                    <td>{b.user_name}</td>
+                    <td>{b.class_name}</td>
+
+                    <td>
+                      <span className={`status-badge ${b.status}`}>
+                        {b.status}
+                      </span>
+                    </td>
+
+                    <td>
+                      <button
+                        className="edit-btn"
+                        onClick={() => handleEdit(b)}
+                      >
+                        Edit
+                      </button>
+
+                      <button
+                        className="delete-btn"
+                        onClick={() => handleDelete(b.id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+
+                  </tr>
+                ))
+              )}
+            </tbody>
+
+          </table>
+        </div>
+
       </div>
 
+      {/* MODAL */}
       {showModal && (
         <div className="modal-overlay">
           <div className="plan-modal">
+
             <h3>{editingId ? "Edit Booking" : "Create Booking"}</h3>
 
             <form onSubmit={handleSubmit}>
-              <input
-                type="number"
+
+              <select
                 name="user"
-                placeholder="User ID"
                 value={formData.user}
                 onChange={handleChange}
                 required
-              />
+              >
+                <option value="">Select Member</option>
+
+                {members.map((m) => (
+                  <option key={m.id} value={m.id}>
+                    {m.user_name || m.username}
+                  </option>
+                ))}
+              </select>
 
               <select
                 name="class_schedule"
@@ -210,10 +325,13 @@ const ManageBookings = () => {
                   Save
                 </button>
               </div>
+
             </form>
+
           </div>
         </div>
       )}
+
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://gym-management-system-p5gh.onrender.com/api/",
+  baseURL: "http://127.0.0.1:8000/api/",
 });
 
 // Attach token automatically
@@ -142,7 +142,6 @@ export const deleteMember = async (id) => {
   const res = await API.delete(`members/${id}/`);
   return res.data;
 };
-
 
 
 

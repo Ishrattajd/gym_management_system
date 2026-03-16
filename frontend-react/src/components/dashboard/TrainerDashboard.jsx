@@ -8,6 +8,7 @@ import {
   LogOut,
   Dumbbell,
   ClipboardCheck,
+  BookOpen,
 } from "lucide-react";
 
 const TrainerDashboard = () => {
@@ -92,12 +93,16 @@ const TrainerDashboard = () => {
 
           <nav className="nav flex-column gap-2">
 
-            <a href="#" className="nav-link-custom active">
+            <a href="trainer-dashboard" className="nav-link-custom active">
               <LayoutDashboard size={20} /> Dashboard
             </a>
 
             <a href="/trainer/classes" className="nav-link-custom">
               <CalendarDays size={20} /> My Classes
+            </a>
+
+             <a href="/trainer/bookings" className="nav-link-custom">
+              <BookOpen size={20} /> Bookings
             </a>
 
             <a href="/trainer/members" className="nav-link-custom">

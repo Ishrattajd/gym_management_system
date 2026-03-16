@@ -7,7 +7,10 @@ import {
   BookOpen,
   User,
   Dumbbell,
-  LogOut
+  LogOut,
+  Activity,
+  ClipboardList,
+  CreditCard
 } from "lucide-react";
 
 const MemberProfile = () => {
@@ -167,8 +170,16 @@ const MemberProfile = () => {
               <BookOpen size={20}/> My Bookings
             </a>
 
+            <a href="/member/workouts" className="nav-link-custom">
+              <Activity size={20}/> AI Workout and diet
+            </a>
+
             <a href="/member/profile" className="nav-link-custom active">
-              <User size={20}/> Profile
+              <ClipboardList size={20}/> Profile
+            </a>
+
+            <a href="/member/plans" className="nav-link-custom">
+              <CreditCard size={20}/> Plans
             </a>
 
           </nav>

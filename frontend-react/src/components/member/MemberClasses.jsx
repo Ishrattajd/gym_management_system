@@ -7,7 +7,10 @@ import {
   Dumbbell,
   LogOut,
   Clock,
-  Users
+  Users,
+  Activity,
+  ClipboardList,
+  CreditCard
 } from "lucide-react";
 
 const MemberClasses = () => {
@@ -25,99 +28,96 @@ const MemberClasses = () => {
   }, []);
 
   const fetchClasses = async () => {
-
     try {
 
-      const res = await fetch(
-        "http://127.0.0.1:8000/api/classes/",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+      const res = await fetch("http://127.0.0.1:8000/api/classes/", {
+        headers: {
+          Authorization: `Bearer ${token}`
         }
-      );
+      });
+
+      if (!res.ok) {
+        console.log("Failed to fetch classes");
+        return;
+      }
 
       const data = await res.json();
-      setClasses(data);
+
+      if (Array.isArray(data)) {
+        setClasses(data);
+      } else {
+        setClasses([]);
+      }
 
     } catch (error) {
       console.error("Classes error:", error);
+      setClasses([]);
     }
-
   };
 
   const fetchBookings = async () => {
-
     try {
 
-      const res = await fetch(
-        "http://127.0.0.1:8000/api/bookings/",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+      const res = await fetch("http://127.0.0.1:8000/api/bookings/", {
+        headers: {
+          Authorization: `Bearer ${token}`
         }
-      );
+      });
+
+      if (!res.ok) {
+        console.log("Failed to fetch bookings");
+        return;
+      }
 
       const data = await res.json();
 
-      // Only show bookings for current user
-      const myBookings = data.filter(
-        (b) => b.user_name === username
-      );
-
-      setBookings(myBookings);
+      if (Array.isArray(data)) {
+        const myBookings = data.filter(
+          (b) => b.user_name === username
+        );
+        setBookings(myBookings);
+      } else {
+        setBookings([]);
+      }
 
     } catch (error) {
       console.error("Bookings error:", error);
+      setBookings([]);
     }
-
   };
 
   const bookClass = async (classId) => {
-
     try {
 
-      const res = await fetch(
-        "http://127.0.0.1:8000/api/bookings/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
-          },
-          body: JSON.stringify({
-            class_schedule: classId,
-            status: "confirmed"
-          })
-        }
-      );
+      const res = await fetch("http://127.0.0.1:8000/api/bookings/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          class_schedule: classId,
+          status: "confirmed"
+        })
+      });
 
       if (res.ok) {
-
         alert("Class booked successfully!");
-
         fetchBookings();
-
       } else {
-
         const error = await res.json();
         console.log("Booking error:", error);
-
       }
 
     } catch (error) {
       console.error("Booking error:", error);
     }
-
   };
 
   const isBooked = (classId) => {
-
     return bookings.some(
       (b) => b.class_schedule === classId
     );
-
   };
 
   const handleLogout = () => {
@@ -166,6 +166,18 @@ const MemberClasses = () => {
               <BookOpen size={20}/> My Bookings
             </a>
 
+            <a href="/member/workouts" className="nav-link-custom">
+              <Activity size={20}/> AI Workout and diet
+            </a>
+
+            <a href="/member/profile" className="nav-link-custom">
+              <ClipboardList size={20}/> Profile
+            </a>
+
+            <a href="/member/plans" className="nav-link-custom">
+              <CreditCard size={20}/> Plans
+            </a>
+
           </nav>
 
         </div>
@@ -196,7 +208,6 @@ const MemberClasses = () => {
 
       </aside>
 
-
       {/* Main Content */}
 
       <main className="main-content">
@@ -213,58 +224,59 @@ const MemberClasses = () => {
 
         </header>
 
-
         {/* Classes Grid */}
 
         <div className="row g-4">
 
-          {classes.map((cls) => {
+          {classes.length === 0 ? (
+            <p className="text-muted">No classes available</p>
+          ) : (
+            classes.map((cls) => {
 
-            const booked = isBooked(cls.id);
+              const booked = isBooked(cls.id);
 
-            return (
+              return (
 
-              <div className="col-md-4" key={cls.id}>
+                <div className="col-md-4" key={cls.id}>
 
-                <div className="card p-4 bg-card-custom border-gray-custom h-100">
+                  <div className="card p-4 bg-card-custom border-gray-custom h-100">
 
-                  <span className="badge bg-success mb-3">
-                    {cls.class_type}
-                  </span>
+                    <span className="badge bg-success mb-3">
+                      {cls.class_type}
+                    </span>
 
-                  <h4 className="text-white fw-bold">
-                    {cls.class_type}
-                  </h4>
+                    <h4 className="text-white fw-bold">
+                      {cls.class_type}
+                    </h4>
 
-                  <p className="text-muted small mb-3">
-                    by {cls.trainer_name}
-                  </p>
+                    <p className="text-muted small mb-3">
+                      by {cls.trainer_name}
+                    </p>
 
-                  <div className="text-muted small mb-2 d-flex align-items-center gap-2">
-                    <Clock size={14}/> {cls.time}
+                    <div className="text-muted small mb-2 d-flex align-items-center gap-2">
+                      <Clock size={14}/> {cls.date} | {cls.time}
+                    </div>
+
+                    <div className="text-muted small mb-3 d-flex align-items-center gap-2">
+                      <Users size={14}/> Capacity {cls.capacity}
+                    </div>
+
+                    <button
+                      disabled={booked}
+                      onClick={() => bookClass(cls.id)}
+                      className={`btn ${booked ? "btn-secondary" : "btn-success"} w-100`}
+                    >
+                      {booked ? "Already Booked" : "BOOK NOW"}
+                    </button>
+
                   </div>
-
-                  <div className="text-muted small mb-3 d-flex align-items-center gap-2">
-                    <Users size={14}/> Capacity {cls.capacity}
-                  </div>
-
-                  <button
-                    disabled={booked}
-                    onClick={() => bookClass(cls.id)}
-                    className={`btn ${booked ? "btn-secondary" : "btn-success"} w-100`}
-                  >
-
-                    {booked ? "Already Booked" : "BOOK NOW"}
-
-                  </button>
 
                 </div>
 
-              </div>
+              );
 
-            );
-
-          })}
+            })
+          )}
 
         </div>
 

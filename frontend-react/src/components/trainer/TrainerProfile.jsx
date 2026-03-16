@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/TrainerDashboard.css";
+
 import {
   LayoutDashboard,
   CalendarDays,
@@ -8,7 +9,8 @@ import {
   UserCircle,
   LogOut,
   Dumbbell,
-  Save
+  Save,
+  ClipboardCheck
 } from "lucide-react";
 
 const TrainerProfile = () => {
@@ -26,6 +28,10 @@ const TrainerProfile = () => {
     bio: ""
   });
 
+  const [loading, setLoading] = useState(true);
+
+  const initials = username.substring(0, 2).toUpperCase();
+
   useEffect(() => {
     fetchProfile();
   }, []);
@@ -33,6 +39,11 @@ const TrainerProfile = () => {
   const fetchProfile = async () => {
 
     try {
+
+      if (!token) {
+        console.error("Token missing");
+        return;
+      }
 
       const res = await fetch(
         "http://127.0.0.1:8000/api/trainers/",
@@ -45,7 +56,7 @@ const TrainerProfile = () => {
 
       const data = await res.json();
 
-      if (data.length > 0) {
+      if (Array.isArray(data) && data.length > 0) {
 
         setProfile(data[0]);
 
@@ -60,6 +71,8 @@ const TrainerProfile = () => {
 
     } catch (error) {
       console.error("Profile error:", error);
+    } finally {
+      setLoading(false);
     }
 
   };
@@ -74,6 +87,11 @@ const TrainerProfile = () => {
   };
 
   const updateProfile = async () => {
+
+    if (!profile) {
+      alert("Profile not loaded yet");
+      return;
+    }
 
     try {
 
@@ -105,8 +123,6 @@ const TrainerProfile = () => {
     localStorage.clear();
     window.location.href = "/";
   };
-
-  const initials = username.substring(0, 2).toUpperCase();
 
   return (
     <div className="container-fluid p-0 bg-dark-custom min-vh-100 d-flex">
@@ -155,6 +171,10 @@ const TrainerProfile = () => {
 
             <a href="/trainer/profile" className="nav-link-custom active">
               <UserCircle size={20}/> Profile
+            </a>
+
+            <a href="/trainer/attendance" className="nav-link-custom">
+              <ClipboardCheck size={20}/> Attendance
             </a>
 
           </nav>
@@ -219,69 +239,81 @@ const TrainerProfile = () => {
             Profile Information
           </h5>
 
-          <div className="row g-3">
+          {loading ? (
 
-            <div className="col-md-6">
+            <p className="text-light">Loading profile...</p>
 
-              <label className="text-muted small mb-1">Phone</label>
+          ) : (
 
-              <input
-                className="form-control"
-                name="phone"
-                value={form.phone}
-                onChange={handleChange}
-              />
+            <>
 
-            </div>
+              <div className="row g-3">
 
-            <div className="col-md-6">
+                <div className="col-md-6">
 
-              <label className="text-muted small mb-1">Specialization</label>
+                  <label className="text-light small mb-1">Phone</label>
 
-              <input
-                className="form-control"
-                name="specialization"
-                value={form.specialization}
-                onChange={handleChange}
-              />
+                  <input
+                    className="form-control"
+                    name="phone"
+                    value={form.phone}
+                    onChange={handleChange}
+                  />
 
-            </div>
+                </div>
 
-            <div className="col-md-6">
+                <div className="col-md-6">
 
-              <label className="text-muted small mb-1">Experience (Years)</label>
+                  <label className="text-light small mb-1">Specialization</label>
 
-              <input
-                className="form-control"
-                name="experience"
-                value={form.experience}
-                onChange={handleChange}
-              />
+                  <input
+                    className="form-control"
+                    name="specialization"
+                    value={form.specialization}
+                    onChange={handleChange}
+                  />
 
-            </div>
+                </div>
 
-            <div className="col-md-12">
+                <div className="col-md-6">
 
-              <label className="text-muted small mb-1">Bio</label>
+                  <label className="text-light small mb-1">Experience (Years)</label>
 
-              <textarea
-                className="form-control"
-                rows="4"
-                name="bio"
-                value={form.bio}
-                onChange={handleChange}
-              />
+                  <input
+                    className="form-control"
+                    name="experience"
+                    value={form.experience}
+                    onChange={handleChange}
+                  />
 
-            </div>
+                </div>
 
-          </div>
+                <div className="col-md-12">
 
-          <button
-            onClick={updateProfile}
-            className="btn btn-success mt-4 d-flex align-items-center gap-2"
-          >
-            <Save size={18}/> Save Profile
-          </button>
+                  <label className="text-light small mb-1">Bio</label>
+
+                  <textarea
+                    className="form-control"
+                    rows="4"
+                    name="bio"
+                    value={form.bio}
+                    onChange={handleChange}
+                  />
+
+                </div>
+
+              </div>
+
+              <button
+                onClick={updateProfile}
+                className="btn btn-success mt-4 d-flex align-items-center gap-2"
+              >
+                <Save size={18}/> Save Profile
+              </button>
+
+            </>
+
+          )}
 
         </div>
 

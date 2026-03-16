@@ -69,10 +69,22 @@ class MemberProfileSerializer(serializers.ModelSerializer):
 # -------------------------------
 class TrainerSerializer(serializers.ModelSerializer):
 
+    name = serializers.CharField(source="user.username", read_only=True)
+    email = serializers.CharField(source="user.email", read_only=True)
+
     class Meta:
         model = TrainerProfile
-        fields = '__all__'
-
+        fields = [
+            "id",
+            "user",
+            "name",
+            "email",
+            "phone",
+            "specialization",
+            "experience",
+            "bio",
+            "is_active"
+        ]
 
 # -------------------------------
 # MEMBERSHIP PLAN SERIALIZER

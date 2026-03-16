@@ -1,9 +1,20 @@
 import React, { useEffect, useState } from "react";
-import "../../styles/trainer.css";
 import "../../styles/TrainerDashboard.css";
+import {
+  LayoutDashboard,
+  CalendarDays,
+  Users,
+  UserCircle,
+  LogOut,
+  Dumbbell,
+  ClipboardCheck,
+  BookOpen
+} from "lucide-react";
 
 const MyClasses = () => {
 
+  const username = localStorage.getItem("username") || "Trainer";
+  const email = localStorage.getItem("email") || "trainer@email.com";
   const token = localStorage.getItem("access_token");
 
   const [classes, setClasses] = useState([]);
@@ -22,9 +33,7 @@ const MyClasses = () => {
     fetchClasses();
   }, []);
 
-  // =============================
   // FETCH CLASSES
-  // =============================
 
   const fetchClasses = async () => {
     try {
@@ -42,9 +51,7 @@ const MyClasses = () => {
     }
   };
 
-  // =============================
-  // HANDLE INPUT CHANGE
-  // =============================
+  // INPUT CHANGE
 
   const handleChange = (e) => {
     setFormData({
@@ -53,9 +60,7 @@ const MyClasses = () => {
     });
   };
 
-  // =============================
-  // ADD OR UPDATE CLASS
-  // =============================
+  // ADD / UPDATE CLASS
 
   const handleSubmit = async () => {
 
@@ -100,9 +105,7 @@ const MyClasses = () => {
     }
   };
 
-  // =============================
-  // EDIT CLASS
-  // =============================
+  // EDIT
 
   const handleEdit = (cls) => {
 
@@ -117,9 +120,7 @@ const MyClasses = () => {
     });
   };
 
-  // =============================
-  // DELETE CLASS
-  // =============================
+  // DELETE
 
   const handleDelete = async (id) => {
 
@@ -141,139 +142,243 @@ const MyClasses = () => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = "/";
+  };
+
+  const initials = username.substring(0, 2).toUpperCase();
+
   return (
-    <div className="trainer-page">
+    <div className="container-fluid p-0 bg-dark-custom min-vh-100 d-flex">
 
-      <div className="d-flex justify-content-between align-items-center mb-4">
+      {/* SIDEBAR */}
+
+      <aside className="sidebar d-flex flex-column justify-content-between p-4 bg-dark-custom">
+
         <div>
-          <h2 className="page-title">MY CLASSES</h2>
-          <p className="page-sub">Manage your class schedule</p>
-        </div>
 
-        <button
-          className="btn btn-success add-btn"
-          onClick={() => {
-            setShowForm(!showForm);
-            setEditingId(null);
-          }}
-        >
-          ADD CLASS
-        </button>
-      </div>
+          <div className="d-flex align-items-center gap-2 mb-5">
+            <Dumbbell className="text-success" size={32} />
 
-      {/* ================= FORM ================= */}
-
-      {showForm && (
-        <div className="card form-card p-4 mb-4">
-
-          <div className="row g-3">
-
-            <div className="col-md-3">
-              <input
-                className="form-control"
-                placeholder="Class Type"
-                name="class_type"
-                value={formData.class_type}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="col-md-3">
-              <input
-                type="date"
-                className="form-control"
-                name="date"
-                value={formData.date}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="col-md-3">
-              <input
-                type="time"
-                className="form-control"
-                name="time"
-                value={formData.time}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="col-md-2">
-              <input
-                className="form-control"
-                placeholder="Capacity"
-                name="capacity"
-                value={formData.capacity}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="col-md-1">
-              <button
-                className="btn btn-success w-100"
-                onClick={handleSubmit}
-              >
-                Save
-              </button>
-            </div>
-
-          </div>
-
-        </div>
-      )}
-
-      {/* ================= CLASS CARDS ================= */}
-
-      <div className="row g-4">
-
-        {classes.map((cls) => (
-
-          <div key={cls.id} className="col-md-6">
-
-            <div className="class-card">
-
-              <div className="d-flex justify-content-between">
-
-                <span className="badge bg-success badge-class">
-                  {cls.class_type}
-                </span>
-
-              </div>
-
-              <h4 className="class-title">
-                {cls.class_type}
+            <div>
+              <h4 className="text-white fw-bold m-0">
+                THE FIT TRIBE
               </h4>
 
-              <p className="class-info">
-                📅 {cls.date} • ⏰ {cls.time}
-                &nbsp;&nbsp; 👥 {cls.capacity}
+              <small
+                className="text-success fw-bold text-uppercase"
+                style={{ fontSize: "10px" }}
+              >
+                Trainer Panel
+              </small>
+            </div>
+          </div>
+
+          <nav className="nav flex-column gap-2">
+
+            <a href="/trainer-dashboard" className="nav-link-custom">
+              <LayoutDashboard size={20} /> Dashboard
+            </a>
+
+            <a href="/trainer/classes" className="nav-link-custom active">
+              <CalendarDays size={20} /> My Classes
+            </a>
+
+            <a href="/trainer/bookings" className="nav-link-custom">
+              <BookOpen size={20} /> Bookings
+            </a>
+
+            <a href="/trainer/members" className="nav-link-custom">
+              <Users size={20} /> Members
+            </a>
+
+            <a href="/trainer/profile" className="nav-link-custom">
+              <UserCircle size={20} /> Profile
+            </a>
+
+            <a href="/trainer/attendance" className="nav-link-custom">
+              <ClipboardCheck size={20}/> Attendance
+            </a>
+
+          </nav>
+
+        </div>
+
+        <div className="pt-4 border-top border-secondary">
+
+          <div className="d-flex align-items-center gap-3 mb-4">
+
+            <div className="avatar-circle">{initials}</div>
+
+            <div>
+              <p className="text-white fw-bold m-0 small">{username}</p>
+              <p className="text-muted m-0" style={{ fontSize: "11px" }}>
+                {email}
               </p>
+            </div>
 
-              <div className="d-flex gap-2 mt-3">
+          </div>
 
+          <button
+            onClick={handleLogout}
+            className="btn btn-link p-0 text-danger text-decoration-none d-flex align-items-center gap-2 fw-bold small"
+          >
+            <LogOut size={18} /> Sign Out
+          </button>
+
+        </div>
+
+      </aside>
+
+
+      {/* MAIN CONTENT */}
+
+      <main className="main-content">
+
+        <div className="d-flex justify-content-between align-items-center mb-5">
+
+          <div>
+            <h1 className="display-5 fw-bold text-white">
+              My Classes
+            </h1>
+            <p className="text-muted">
+              Manage your gym classes
+            </p>
+          </div>
+
+          <button
+            className="btn btn-success"
+            onClick={() => {
+              setShowForm(!showForm);
+              setEditingId(null);
+            }}
+          >
+            Add Class
+          </button>
+
+        </div>
+
+
+        {/* FORM */}
+
+        {showForm && (
+          <div className="card p-4 bg-card-custom border-gray-custom mb-5">
+
+            <div className="row g-3">
+
+              <div className="col-md-3">
+                <input
+                  className="form-control"
+                  placeholder="Class Type"
+                  name="class_type"
+                  value={formData.class_type}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="col-md-3">
+                <input
+                  type="date"
+                  className="form-control"
+                  name="date"
+                  value={formData.date}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="col-md-3">
+                <input
+                  type="time"
+                  className="form-control"
+                  name="time"
+                  value={formData.time}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="col-md-2">
+                <input
+                  className="form-control"
+                  placeholder="Capacity"
+                  name="capacity"
+                  value={formData.capacity}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="col-md-1">
                 <button
-                  className="btn btn-outline-light btn-sm"
-                  onClick={() => handleEdit(cls)}
+                  className="btn btn-success w-100"
+                  onClick={handleSubmit}
                 >
-                  Edit
+                  Save
                 </button>
-
-                <button
-                  className="btn btn-outline-danger btn-sm"
-                  onClick={() => handleDelete(cls.id)}
-                >
-                  Delete
-                </button>
-
               </div>
 
             </div>
 
           </div>
+        )}
 
-        ))}
 
-      </div>
+        {/* CLASS CARDS */}
+
+        <div className="row g-4">
+
+          {classes.map((cls) => (
+
+            <div key={cls.id} className="col-md-6">
+
+              <div className="card p-4 bg-card-custom border-gray-custom">
+
+                <div className="d-flex justify-content-between mb-3">
+
+                  <span className="badge bg-success">
+                    {cls.class_type}
+                  </span>
+
+                </div>
+
+                <h4 className="text-white fw-bold">
+                  {cls.class_type}
+                </h4>
+
+                <p className="text-muted small">
+                  📅 {cls.date} • ⏰ {cls.time}
+                </p>
+
+                <p className="text-success fw-bold">
+                  {cls.capacity} slots
+                </p>
+
+                <div className="d-flex gap-2 mt-3">
+
+                  <button
+                    className="btn btn-outline-light btn-sm"
+                    onClick={() => handleEdit(cls)}
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    className="btn btn-outline-danger btn-sm"
+                    onClick={() => handleDelete(cls.id)}
+                  >
+                    Delete
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          ))}
+
+        </div>
+
+      </main>
 
     </div>
   );

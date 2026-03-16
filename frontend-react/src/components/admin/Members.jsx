@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import {
   fetchMembers,
@@ -5,9 +6,14 @@ import {
   deleteMember,
   fetchPlans
 } from "../../services/api";
+
+import "../../styles/AdminDashboard.css";
 import "../../styles/Admin.css";
 
 const Members = () => {
+
+  const username = localStorage.getItem("username");
+  const email = localStorage.getItem("email");
 
   const [members, setMembers] = useState([]);
   const [plans, setPlans] = useState([]);
@@ -25,6 +31,11 @@ const Members = () => {
     membership_plan: "",
     status: "Active"
   });
+
+  useEffect(() => {
+    loadMembers();
+    loadPlans();
+  }, []);
 
   const loadMembers = async () => {
     try {
@@ -45,11 +56,6 @@ const Members = () => {
       console.error("Failed to load plans:", error);
     }
   };
-
-  useEffect(() => {
-    loadMembers();
-    loadPlans();
-  }, []);
 
   const handleChange = (e) => {
 
@@ -119,99 +125,201 @@ const Members = () => {
 
   };
 
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = "/";
+  };
+
   return (
 
-    <div className="admin-page">
+    <div className="dashboard-wrapper">
 
-      <div className="admin-header">
+      {/* SIDEBAR */}
 
-        <div>
-          <h2 className="admin-title">Members</h2>
-          <p className="admin-subtitle">Manage registered gym members</p>
+      <div className="sidebar">
+
+        <div className="mb-5">
+          <h4 className="fw-bold mb-0 text-white">THE FITNESS TRIBE</h4>
+          <small className="text-success">Admin Panel</small>
+        </div>
+
+        <nav className="flex-grow-1">
+
+          <a href="/admin-dashboard" className="nav-item-custom">
+            Dashboard
+          </a>
+
+          <a href="/admin/plans" className="nav-item-custom">
+            Manage Plans
+          </a>
+
+          <a href="/admin/classes" className="nav-item-custom">
+            Schedules
+          </a>
+
+          <a href="/admin/members" className="nav-item-custom active">
+            Members
+          </a>
+
+          <a href="/admin/bookings" className="nav-item-custom">
+            Bookings
+          </a>
+
+          <a href="/admin/trainers" className="nav-item-custom">
+            Trainers
+          </a>
+
+        </nav>
+
+        <div className="mt-auto border-top border-secondary pt-3">
+
+          <div className="d-flex align-items-center mb-3">
+
+            <div
+              className="bg-success rounded-circle me-2"
+              style={{
+                width: 35,
+                height: 35,
+                display: "grid",
+                placeItems: "center"
+              }}
+            >
+              {username ? username.substring(0,2).toUpperCase() : "AU"}
+            </div>
+
+            <div>
+              <p className="mb-0 small fw-bold">{username}</p>
+              <p
+                className="mb-0 smaller text-secondary"
+                style={{ fontSize: "11px" }}
+              >
+                {email}
+              </p>
+            </div>
+
+          </div>
+
+          <button
+            onClick={handleLogout}
+            className="text-danger text-decoration-none small"
+            style={{ background: "none", border: "none" }}
+          >
+            Sign Out
+          </button>
+
         </div>
 
       </div>
 
-      {loading ? (
+      {/* MAIN CONTENT */}
 
-        <p className="text-light">Loading members...</p>
+      <div className="main-content">
 
-      ) : (
+        <div className="admin-header">
 
-        <div className="table-container">
-
-          <table className="schedule-table">
-
-            <thead>
-
-              <tr>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Plan</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-
-            </thead>
-
-            <tbody>
-
-              {members.map((m) => (
-
-                <tr key={m.id}>
-
-                  <td><strong>{m.username}</strong></td>
-
-                  <td>{m.email}</td>
-
-                  <td>{m.phone || "-"}</td>
-
-                  <td>{m.plan_name || "No Plan"}</td>
-
-                  <td>
-
-                    <span
-                      className={
-                        m.status === "Active"
-                          ? "status-active"
-                          : "status-inactive"
-                      }
-                    >
-                      {m.status}
-                    </span>
-
-                  </td>
-
-                  <td>
-
-                    <button
-                      className="edit-btn"
-                      onClick={() => handleEdit(m)}
-                    >
-                      Edit
-                    </button>
-
-                    <button
-                      className="delete-btn"
-                      onClick={() => handleDelete(m.id)}
-                    >
-                      Delete
-                    </button>
-
-                  </td>
-
-                </tr>
-
-              ))}
-
-            </tbody>
-
-          </table>
+          <div>
+            <h2 className="fw-bold mb-1">MEMBERS</h2>
+            <p className="text-secondary mb-4">
+              Manage registered gym members
+            </p>
+          </div>
 
         </div>
 
-      )}
+        {loading ? (
+
+          <p>Loading members...</p>
+
+        ) : (
+
+          <div className="table-container">
+
+            <table className="schedule-table">
+
+              <thead>
+
+                <tr>
+                  <th>Username</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Plan</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+
+              </thead>
+
+              <tbody>
+
+                {members.length === 0 ? (
+
+                  <tr>
+                    <td colSpan="6">No members found</td>
+                  </tr>
+
+                ) : (
+
+                  members.map((m) => (
+
+                    <tr key={m.id}>
+
+                      <td><strong>{m.username}</strong></td>
+
+                      <td>{m.email}</td>
+
+                      <td>{m.phone || "-"}</td>
+
+                      <td>{m.plan_name || "No Plan"}</td>
+
+                      <td>
+
+                        <span
+                          className={
+                            m.status === "Active"
+                              ? "status-active"
+                              : "status-inactive"
+                          }
+                        >
+                          {m.status}
+                        </span>
+
+                      </td>
+
+                      <td>
+
+                        <button
+                          className="edit-btn"
+                          onClick={() => handleEdit(m)}
+                        >
+                          Edit
+                        </button>
+
+                        <button
+                          className="delete-btn"
+                          onClick={() => handleDelete(m.id)}
+                        >
+                          Delete
+                        </button>
+
+                      </td>
+
+                    </tr>
+
+                  ))
+
+                )}
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        )}
+
+      </div>
+
+      {/* MODAL */}
 
       {showModal && (
 

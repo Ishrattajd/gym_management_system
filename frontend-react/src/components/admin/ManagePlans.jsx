@@ -1,11 +1,15 @@
-
 import React, { useState, useEffect } from "react";
 import "../../styles/Admin.css";
+import "../../styles/AdminDashboard.css";
 import axios from "axios";
 
 const API_URL = "http://127.0.0.1:8000/api/plans/";
 
 const ManagePlans = () => {
+
+  const username = localStorage.getItem("username");
+  const email = localStorage.getItem("email");
+
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -89,55 +93,124 @@ const ManagePlans = () => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = "/";
+  };
+
   return (
-    <div className="admin-page">
-      {/* HEADER */}
-      <div className="admin-header">
-        <div>
-          <h2 className="admin-title">Membership Plans</h2>
-          <p className="admin-subtitle">Manage gym membership plans</p>
+    <div className="dashboard-wrapper">
+
+      {/* SIDEBAR */}
+      <div className="sidebar">
+
+        <div className="mb-5">
+          <h4 className="fw-bold mb-0 text-white">THE FITNESS TRIBE</h4>
+          <small className="text-success">Admin Panel</small>
         </div>
 
-        <button className="add-btn" onClick={() => setShowModal(true)}>
-          + Add Plan
-        </button>
+        <nav className="flex-grow-1">
+          <a href="/admin-dashboard" className="nav-item-custom">Dashboard</a>
+          <a href="/admin/plans" className="nav-item-custom active">Manage Plans</a>
+          <a href="/admin/classes" className="nav-item-custom">Schedules</a>
+          <a href="/admin/members" className="nav-item-custom">Members</a>
+          <a href="/admin/bookings" className="nav-item-custom">Bookings</a>
+          <a href="/admin/trainers" className="nav-item-custom">Manage Trainers</a>
+        </nav>
+
+        <div className="mt-auto border-top border-secondary pt-3">
+
+          <div className="d-flex align-items-center mb-3">
+
+            <div
+              className="bg-success rounded-circle me-2"
+              style={{ width: 35, height: 35, display: "grid", placeItems: "center" }}
+            >
+              {username ? username.substring(0, 2).toUpperCase() : "AU"}
+            </div>
+
+            <div>
+              <p className="mb-0 small fw-bold">{username}</p>
+              <p className="mb-0 smaller text-secondary" style={{ fontSize: "11px" }}>
+                {email}
+              </p>
+            </div>
+
+          </div>
+
+          <button
+            onClick={handleLogout}
+            className="text-danger text-decoration-none small"
+            style={{ background: "none", border: "none" }}
+          >
+            Sign Out
+          </button>
+
+        </div>
+
       </div>
 
-      {/* PLANS GRID */}
-      <div className="plans-grid">
-        {loading ? (
-          <p className="text-light">Loading plans...</p>
-        ) : plans.length === 0 ? (
-          <p className="text-light">No plans found</p>
-        ) : (
-          plans.map((plan) => (
-            <div key={plan.id} className="plan-card">
-              <h3 className="plan-name">{plan.name}</h3>
+      {/* MAIN CONTENT */}
+      <div className="main-content">
 
-              <p className="plan-price">₹{plan.price}</p>
+        {/* HEADER */}
+        <div className="admin-header">
+          <div>
+            <h2 className="fw-bold mb-1">MEMBERSHIP PLANS</h2>
+            <p className="text-secondary mb-4">Manage gym membership plans</p>
+          </div>
 
-              <p className="plan-duration">{plan.duration} days</p>
+          <button className="add-btn" onClick={() => setShowModal(true)}>
+            + Add Plan
+          </button>
+        </div>
 
-              <p className="plan-features">{plan.features}</p>
+        {/* PLANS GRID */}
+        <div className="plans-grid">
 
-              <button
-                className="delete-btn"
-                onClick={() => deletePlan(plan.id)}
-              >
-                Delete Plan
-              </button>
-            </div>
-          ))
-        )}
+          {loading ? (
+            <p className="text-light">Loading plans...</p>
+          ) : plans.length === 0 ? (
+            <p className="text-light">No plans found</p>
+          ) : (
+            plans.map((plan) => (
+
+              <div key={plan.id} className="plan-card">
+
+                <h3 className="plan-name">{plan.name}</h3>
+
+                <p className="plan-price">₹{plan.price}</p>
+
+                <p className="plan-duration">{plan.duration} days</p>
+
+                <p className="plan-features">{plan.features}</p>
+
+                <button
+                  className="delete-btn"
+                  onClick={() => deletePlan(plan.id)}
+                >
+                  Delete Plan
+                </button>
+
+              </div>
+
+            ))
+          )}
+
+        </div>
+
       </div>
 
       {/* ADD PLAN MODAL */}
       {showModal && (
         <div className="modal-overlay">
+
           <div className="plan-modal">
+
             <h3>Add Membership Plan</h3>
 
             <form onSubmit={handleAddPlan}>
+
               <input
                 type="text"
                 name="name"
@@ -174,6 +247,7 @@ const ManagePlans = () => {
               />
 
               <div className="modal-buttons">
+
                 <button
                   type="button"
                   className="cancel-btn"
@@ -185,11 +259,16 @@ const ManagePlans = () => {
                 <button type="submit" className="save-btn">
                   Save Plan
                 </button>
+
               </div>
+
             </form>
+
           </div>
+
         </div>
       )}
+
     </div>
   );
 };

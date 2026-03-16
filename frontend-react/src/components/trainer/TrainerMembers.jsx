@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/TrainerDashboard.css";
-import "../../styles/trainer.css"
+import "../../styles/trainer.css";
+
 import {
   LayoutDashboard,
   CalendarDays,
@@ -8,7 +9,8 @@ import {
   Users,
   UserCircle,
   LogOut,
-  Dumbbell
+  Dumbbell,
+  ClipboardCheck
 } from "lucide-react";
 
 const TrainerMembers = () => {
@@ -18,6 +20,9 @@ const TrainerMembers = () => {
   const token = localStorage.getItem("access_token");
 
   const [members, setMembers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const initials = username.substring(0, 2).toUpperCase();
 
   useEffect(() => {
     fetchMembers();
@@ -26,6 +31,11 @@ const TrainerMembers = () => {
   const fetchMembers = async () => {
 
     try {
+
+      if (!token) {
+        console.error("Token missing");
+        return;
+      }
 
       const res = await fetch(
         "http://127.0.0.1:8000/api/members/",
@@ -38,10 +48,19 @@ const TrainerMembers = () => {
       );
 
       const data = await res.json();
-      setMembers(data);
+
+      if (Array.isArray(data)) {
+        setMembers(data);
+      } else {
+        console.error("Invalid members response:", data);
+        setMembers([]);
+      }
 
     } catch (error) {
       console.error("Members fetch error:", error);
+      setMembers([]);
+    } finally {
+      setLoading(false);
     }
 
   };
@@ -50,8 +69,6 @@ const TrainerMembers = () => {
     localStorage.clear();
     window.location.href = "/";
   };
-
-  const initials = username.substring(0, 2).toUpperCase();
 
   return (
     <div className="container-fluid p-0 bg-dark-custom min-vh-100 d-flex">
@@ -83,23 +100,27 @@ const TrainerMembers = () => {
           <nav className="nav flex-column gap-2">
 
             <a href="/trainer-dashboard" className="nav-link-custom">
-              <LayoutDashboard size={20} /> Dashboard
+              <LayoutDashboard size={20}/> Dashboard
             </a>
 
             <a href="/trainer/classes" className="nav-link-custom">
-              <CalendarDays size={20} /> My Classes
+              <CalendarDays size={20}/> My Classes
             </a>
 
             <a href="/trainer/bookings" className="nav-link-custom">
-              <BookOpen size={20} /> Bookings
+              <BookOpen size={20}/> Bookings
             </a>
 
             <a href="/trainer/members" className="nav-link-custom active">
-              <Users size={20} /> Members
+              <Users size={20}/> Members
             </a>
 
-            <a href="trainer/profile" className="nav-link-custom">
-              <UserCircle size={20} /> Profile
+            <a href="/trainer/profile" className="nav-link-custom">
+              <UserCircle size={20}/> Profile
+            </a>
+
+            <a href="/trainer/attendance" className="nav-link-custom">
+              <ClipboardCheck size={20}/> Attendance
             </a>
 
           </nav>
@@ -121,7 +142,7 @@ const TrainerMembers = () => {
                 {username}
               </p>
 
-              <p className="text-muted m-0 text-light" style={{ fontSize: "11px" }}>
+              <p className="text-muted m-0" style={{ fontSize: "11px" }}>
                 {email}
               </p>
 
@@ -133,7 +154,7 @@ const TrainerMembers = () => {
             onClick={handleLogout}
             className="btn btn-link p-0 text-danger text-decoration-none d-flex align-items-center gap-2 fw-bold small"
           >
-            <LogOut size={18} /> Sign Out
+            <LogOut size={18}/> Sign Out
           </button>
 
         </div>
@@ -151,7 +172,7 @@ const TrainerMembers = () => {
             Members
           </h1>
 
-          <p className="text-muted fs-5">
+          <p className="text-light fs-5">
             Gym members overview
           </p>
 
@@ -164,42 +185,54 @@ const TrainerMembers = () => {
             Member List
           </h5>
 
-          <div className="d-flex flex-column gap-3">
+          {loading ? (
 
-            {members.map((m) => (
+            <p className="text-light">Loading members...</p>
 
-              <div
-                key={m.id}
-                className="d-flex justify-content-between align-items-center p-4 rounded-3 bg-item-custom border-gray-custom"
-              >
+          ) : members.length === 0 ? (
 
-                <div>
+            <p className="text-light">No members found.</p>
 
-                  <h5 className="text-white fw-bold mb-1">
-                    {m.username}
-                  </h5>
+          ) : (
 
-                  <p className="text-muted small mb-0">
-                    Email: {m.email}
-                  </p>
+            <div className="d-flex flex-column gap-3">
 
-                  <p className="text-muted small mb-0">
-                    Goal: {m.goal || "Not specified"}
-                  </p>
+              {members.map((m) => (
+
+                <div
+                  key={m.id}
+                  className="d-flex justify-content-between align-items-center p-4 rounded-3 bg-item-custom border-gray-custom"
+                >
+
+                  <div>
+
+                    <h5 className="text-white fw-bold mb-1">
+                      {m.username || "Unknown"}
+                    </h5>
+
+                    <p className="text-white small mb-0">
+                      Email: {m.email || "N/A"}
+                    </p>
+
+                    <p className="text-white small mb-0">
+                      Goal: {m.goal || "Not specified"}
+                    </p>
+
+                  </div>
+
+                  <div className="text-success fw-bold">
+
+                    {m.plan_name || "No Plan"}
+
+                  </div>
 
                 </div>
 
-                <div className="text-success fw-bold">
+              ))}
 
-                  {m.plan_name || "No Plan"}
+            </div>
 
-                </div>
-
-              </div>
-
-            ))}
-
-          </div>
+          )}
 
         </div>
 

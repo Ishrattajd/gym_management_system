@@ -14,10 +14,12 @@ router.register('bookings', BookingViewSet)
 router.register('attendance', AttendanceViewSet)
 router.register('workouts', WorkoutSuggestionViewSet)
 
+
 urlpatterns = [
     path('register/', register_user),
     path('login/', login_user),
     path('forgot-password/', forgot_password),
+    path("trainer-booked-members/", trainer_booked_members),
 ]
 
 urlpatterns += router.urls

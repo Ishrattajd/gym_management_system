@@ -6,7 +6,10 @@ import {
   BookOpen,
   Dumbbell,
   LogOut,
-  Clock
+  Clock,
+  Activity,
+  ClipboardList,
+  CreditCard
 } from "lucide-react";
 
 const MemberBookings = () => {
@@ -37,7 +40,12 @@ const MemberBookings = () => {
       );
 
       const classData = await classRes.json();
-      setClasses(classData);
+
+      if (Array.isArray(classData)) {
+        setClasses(classData);
+      } else {
+        setClasses([]);
+      }
 
       // Fetch bookings
       const bookingRes = await fetch(
@@ -47,13 +55,19 @@ const MemberBookings = () => {
 
       const bookingData = await bookingRes.json();
 
-      const currentUser = localStorage.getItem("username");
+      if (Array.isArray(bookingData)) {
 
-      const myBookings = bookingData.filter(
-        (b) => b.user_name === currentUser
-      );
+        const myBookings = bookingData.filter(
+          (b) => b.user_name === username
+        );
 
-      setBookings(myBookings);
+        setBookings(myBookings);
+
+      } else {
+
+        setBookings([]);
+
+      }
 
     } catch (error) {
       console.error("Bookings error:", error);
@@ -106,6 +120,7 @@ const MemberBookings = () => {
         <div>
 
           <div className="d-flex align-items-center gap-2 mb-5">
+
             <Dumbbell className="text-success" size={32} />
 
             <div>
@@ -117,6 +132,7 @@ const MemberBookings = () => {
                 Member Panel
               </small>
             </div>
+
           </div>
 
           <nav className="nav flex-column gap-2">
@@ -131,6 +147,18 @@ const MemberBookings = () => {
 
             <a href="/member/bookings" className="nav-link-custom active">
               <BookOpen size={20}/> My Bookings
+            </a>
+
+            <a href="/member/workouts" className="nav-link-custom">
+              <Activity size={20}/> AI Workout and diet
+            </a>
+
+            <a href="/member/profile" className="nav-link-custom">
+              <ClipboardList size={20}/> Profile
+            </a>
+
+            <a href="/member/plans" className="nav-link-custom">
+              <CreditCard size={20}/> Plans
             </a>
 
           </nav>
@@ -163,7 +191,6 @@ const MemberBookings = () => {
 
       </aside>
 
-
       {/* Main Content */}
 
       <main className="main-content">
@@ -179,9 +206,6 @@ const MemberBookings = () => {
           </p>
 
         </header>
-
-
-        {/* Booking List */}
 
         <div className="card p-4 bg-card-custom border-gray-custom">
 

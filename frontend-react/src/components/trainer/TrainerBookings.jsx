@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/TrainerDashboard.css";
+
 import {
   LayoutDashboard,
   CalendarDays,
@@ -10,7 +11,8 @@ import {
   Dumbbell,
   Trash2,
   CheckCircle,
-  Clock
+  Clock,
+  ClipboardCheck
 } from "lucide-react";
 
 const TrainerBookings = () => {
@@ -20,6 +22,9 @@ const TrainerBookings = () => {
   const token = localStorage.getItem("access_token");
 
   const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const initials = username.substring(0, 2).toUpperCase();
 
   useEffect(() => {
     fetchBookings();
@@ -28,21 +33,32 @@ const TrainerBookings = () => {
   const fetchBookings = async () => {
     try {
 
-      const res = await fetch(
-        "http://127.0.0.1:8000/api/bookings/",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
-          }
+      if (!token) {
+        console.error("No token found");
+        return;
+      }
+
+      const res = await fetch("http://127.0.0.1:8000/api/bookings/", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
         }
-      );
+      });
 
       const data = await res.json();
-      setBookings(data);
+
+      if (Array.isArray(data)) {
+        setBookings(data);
+      } else {
+        console.error("Invalid bookings response:", data);
+        setBookings([]);
+      }
 
     } catch (error) {
       console.error("Bookings error:", error);
+      setBookings([]);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -50,24 +66,20 @@ const TrainerBookings = () => {
 
     try {
 
-      await fetch(
-        `http://127.0.0.1:8000/api/bookings/${id}/`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
-          },
-          body: JSON.stringify({ status })
-        }
-      );
+      await fetch(`http://127.0.0.1:8000/api/bookings/${id}/`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ status })
+      });
 
       fetchBookings();
 
     } catch (error) {
       console.error("Update error:", error);
     }
-
   };
 
   const deleteBooking = async (id) => {
@@ -76,30 +88,24 @@ const TrainerBookings = () => {
 
     try {
 
-      await fetch(
-        `http://127.0.0.1:8000/api/bookings/${id}/`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+      await fetch(`http://127.0.0.1:8000/api/bookings/${id}/`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`
         }
-      );
+      });
 
       fetchBookings();
 
     } catch (error) {
       console.error("Delete error:", error);
     }
-
   };
 
   const handleLogout = () => {
     localStorage.clear();
     window.location.href = "/";
   };
-
-  const initials = username.substring(0, 2).toUpperCase();
 
   return (
     <div className="container-fluid p-0 bg-dark-custom min-vh-100 d-flex">
@@ -123,7 +129,6 @@ const TrainerBookings = () => {
               >
                 Trainer Panel
               </small>
-
             </div>
 
           </div>
@@ -131,29 +136,32 @@ const TrainerBookings = () => {
           <nav className="nav flex-column gap-2">
 
             <a href="/trainer-dashboard" className="nav-link-custom">
-              <LayoutDashboard size={20} /> Dashboard
+              <LayoutDashboard size={20}/> Dashboard
             </a>
 
             <a href="/trainer/classes" className="nav-link-custom">
-              <CalendarDays size={20} /> My Classes
+              <CalendarDays size={20}/> My Classes
             </a>
 
             <a href="/trainer/bookings" className="nav-link-custom active">
-              <BookOpen size={20} /> Bookings
+              <BookOpen size={20}/> Bookings
             </a>
 
             <a href="/trainer/members" className="nav-link-custom">
-              <Users size={20} /> Members
+              <Users size={20}/> Members
             </a>
 
             <a href="/trainer/profile" className="nav-link-custom">
-              <UserCircle size={20} /> Profile
+              <UserCircle size={20}/> Profile
+            </a>
+
+            <a href="/trainer/attendance" className="nav-link-custom">
+              <ClipboardCheck size={20}/> Attendance
             </a>
 
           </nav>
 
         </div>
-
 
         <div className="pt-4 border-top border-secondary">
 
@@ -164,7 +172,6 @@ const TrainerBookings = () => {
             </div>
 
             <div>
-
               <p className="text-white fw-bold m-0 small">
                 {username}
               </p>
@@ -172,7 +179,6 @@ const TrainerBookings = () => {
               <p className="text-muted m-0" style={{ fontSize: "11px" }}>
                 {email}
               </p>
-
             </div>
 
           </div>
@@ -181,7 +187,7 @@ const TrainerBookings = () => {
             onClick={handleLogout}
             className="btn btn-link p-0 text-danger text-decoration-none d-flex align-items-center gap-2 fw-bold small"
           >
-            <LogOut size={18} /> Sign Out
+            <LogOut size={18}/> Sign Out
           </button>
 
         </div>
@@ -199,7 +205,7 @@ const TrainerBookings = () => {
             Class Bookings
           </h1>
 
-          <p className="text-muted fs-5">
+          <p className="text-light fs-5">
             Manage member bookings
           </p>
 
@@ -212,62 +218,73 @@ const TrainerBookings = () => {
             All Bookings
           </h5>
 
-          <div className="d-flex flex-column gap-3">
+          {loading ? (
 
-            {bookings.map((b) => (
+            <p className="text-light">Loading bookings...</p>
 
-              <div
-                key={b.id}
-                className="d-flex justify-content-between align-items-center p-4 rounded-3 bg-item-custom border-gray-custom"
-              >
+          ) : bookings.length === 0 ? (
 
-                <div>
+            <p className="text-light">No bookings found.</p>
 
-                  <h5 className="text-white fw-bold mb-1">
-                    {b.class_name}
-                  </h5>
+          ) : (
 
-                  <p className="text-muted small mb-0">
-                    Member: {b.user_name}
-                  </p>
+            <div className="d-flex flex-column gap-3">
 
-                  <p className="text-muted small mb-0">
-                    Status: {b.status}
-                  </p>
+              {bookings.map((b) => (
+
+                <div
+                  key={b.id}
+                  className="d-flex justify-content-between align-items-center p-4 rounded-3 bg-item-custom border-gray-custom"
+                >
+
+                  <div>
+
+                    <h5 className="text-white fw-bold mb-1">
+                      {b.class_name}
+                    </h5>
+
+                    <p className="text-white small mb-1">
+                      Member: {b.user_name}
+                    </p>
+
+                    <span className="badge bg-secondary">
+                      {b.status}
+                    </span>
+
+                  </div>
+
+                  <div className="d-flex gap-2">
+
+                    <button
+                      className="btn btn-success btn-sm"
+                      onClick={() => updateStatus(b.id, "Approved")}
+                    >
+                      <CheckCircle size={16}/>
+                    </button>
+
+                    <button
+                      className="btn btn-warning btn-sm"
+                      onClick={() => updateStatus(b.id, "Pending")}
+                    >
+                      <Clock size={16}/>
+                    </button>
+
+                    <button
+                      className="btn btn-danger btn-sm"
+                      onClick={() => deleteBooking(b.id)}
+                    >
+                      <Trash2 size={16}/>
+                    </button>
+
+                  </div>
 
                 </div>
 
+              ))}
 
-                <div className="d-flex gap-2">
+            </div>
 
-                  <button
-                    className="btn btn-success btn-sm"
-                    onClick={() => updateStatus(b.id, "Approved")}
-                  >
-                    <CheckCircle size={16} />
-                  </button>
-
-                  <button
-                    className="btn btn-warning btn-sm"
-                    onClick={() => updateStatus(b.id, "Pending")}
-                  >
-                    <Clock size={16} />
-                  </button>
-
-                  <button
-                    className="btn btn-danger btn-sm"
-                    onClick={() => deleteBooking(b.id)}
-                  >
-                    <Trash2 size={16} />
-                  </button>
-
-                </div>
-
-              </div>
-
-            ))}
-
-          </div>
+          )}
 
         </div>
 

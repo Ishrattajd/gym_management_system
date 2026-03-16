@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import {
   fetchSchedules,
@@ -6,9 +7,15 @@ import {
   deleteSchedule,
   fetchTrainers,
 } from "../../services/api";
+
+import "../../styles/AdminDashboard.css";
 import "../../styles/Admin.css";
 
 const Schedule = () => {
+
+  const username = localStorage.getItem("username");
+  const email = localStorage.getItem("email");
+
   const [schedules, setSchedules] = useState([]);
   const [trainers, setTrainers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -25,7 +32,11 @@ const Schedule = () => {
     capacity: "",
   });
 
-  // Load schedules
+  useEffect(() => {
+    loadSchedules();
+    loadTrainers();
+  }, []);
+
   const loadSchedules = async () => {
     try {
       const data = await fetchSchedules();
@@ -38,7 +49,6 @@ const Schedule = () => {
     }
   };
 
-  // Load trainers
   const loadTrainers = async () => {
     try {
       const data = await fetchTrainers();
@@ -47,11 +57,6 @@ const Schedule = () => {
       console.error("Failed to load trainers:", error);
     }
   };
-
-  useEffect(() => {
-    loadSchedules();
-    loadTrainers();
-  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -71,6 +76,7 @@ const Schedule = () => {
   };
 
   const handleSubmit = async (e) => {
+
     e.preventDefault();
 
     if (!formData.trainer) {
@@ -87,6 +93,7 @@ const Schedule = () => {
     };
 
     try {
+
       if (isEditing) {
         await updateSchedule(currentId, payload);
       } else {
@@ -97,15 +104,17 @@ const Schedule = () => {
       setIsEditing(false);
       setCurrentId(null);
       resetForm();
-
       loadSchedules();
+
     } catch (error) {
       console.error("Error saving schedule:", error.response?.data || error);
       alert("Failed to save schedule");
     }
+
   };
 
   const handleEdit = (schedule) => {
+
     setFormData({
       trainer: schedule.trainer,
       class_type: schedule.class_type,
@@ -117,124 +126,254 @@ const Schedule = () => {
     setCurrentId(schedule.id);
     setIsEditing(true);
     setShowModal(true);
+
   };
 
   const handleDelete = async (id) => {
+
     if (window.confirm("Delete this schedule?")) {
+
       try {
+
         await deleteSchedule(id);
         loadSchedules();
+
       } catch (error) {
+
         console.error("Error deleting schedule:", error);
         alert("Failed to delete schedule");
+
       }
+
     }
+
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = "/";
   };
 
   return (
-    <div className="admin-page">
-      <div className="admin-header">
-        <div>
-          <h2 className="admin-title">Class Schedules</h2>
-          <p className="admin-subtitle">Manage all gym classes</p>
+
+    <div className="dashboard-wrapper">
+
+      {/* SIDEBAR */}
+
+      <div className="sidebar">
+
+        <div className="mb-5">
+          <h4 className="fw-bold mb-0 text-white">THE FITNESS TRIBE</h4>
+          <small className="text-success">Admin Panel</small>
         </div>
 
-        <button
-          className="add-btn"
-          onClick={() => {
-            setShowModal(true);
-            setIsEditing(false);
-            resetForm();
-          }}
-        >
-          Create Schedule
-        </button>
+        <nav className="flex-grow-1">
+
+          <a href="/admin-dashboard" className="nav-item-custom">
+            Dashboard
+          </a>
+
+          <a href="/admin/plans" className="nav-item-custom">
+            Manage Plans
+          </a>
+
+          <a href="/admin/classes" className="nav-item-custom active">
+            Schedules
+          </a>
+
+          <a href="/admin/members" className="nav-item-custom">
+            Members
+          </a>
+
+          <a href="/admin/bookings" className="nav-item-custom">
+            Bookings
+          </a>
+
+          <a href="/admin/trainers" className="nav-item-custom">
+            Trainers
+          </a>
+
+        </nav>
+
+        <div className="mt-auto border-top border-secondary pt-3">
+
+          <div className="d-flex align-items-center mb-3">
+
+            <div
+              className="bg-success rounded-circle me-2"
+              style={{ width: 35, height: 35, display: "grid", placeItems: "center" }}
+            >
+              {username ? username.substring(0,2).toUpperCase() : "AU"}
+            </div>
+
+            <div>
+              <p className="mb-0 small fw-bold">{username}</p>
+              <p className="mb-0 smaller text-secondary" style={{ fontSize: "11px" }}>
+                {email}
+              </p>
+            </div>
+
+          </div>
+
+          <button
+            onClick={handleLogout}
+            className="text-danger text-decoration-none small"
+            style={{ background: "none", border: "none" }}
+          >
+            Sign Out
+          </button>
+
+        </div>
+
       </div>
 
-      {loading ? (
-        <p className="text-light">Loading schedules...</p>
-      ) : (
-        <div className="table-container">
-          <table className="schedule-table">
-            <thead>
-              <tr>
-                <th>Class</th>
-                <th>Trainer</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Capacity</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
+      {/* MAIN CONTENT */}
 
-            <tbody>
-              {schedules.map((s) => {
-                const trainerName =
-                  s.trainer_name ||
-                  trainers.find((t) => t.id === s.trainer)?.name ||
-                  "Unknown";
+      <div className="main-content">
 
-                return (
-                  <tr key={s.id}>
-                    <td>
-                      <strong>{s.class_type}</strong>
-                    </td>
+        <div className="admin-header">
 
-                    <td>{trainerName}</td>
+          <div>
+            <h2 className="fw-bold mb-1">CLASS SCHEDULES</h2>
+            <p className="text-secondary mb-4">Manage all gym classes</p>
+          </div>
 
-                    <td>
-                      {s.date
-                        ? new Date(s.date).toLocaleDateString()
-                        : "No Date"}
-                    </td>
+          <button
+            className="add-btn"
+            onClick={() => {
+              setShowModal(true);
+              setIsEditing(false);
+              resetForm();
+            }}
+          >
+            Create Schedule
+          </button>
 
-                    <td>{s.time}</td>
-
-                    <td>{s.capacity}</td>
-
-                    <td>
-                      <button
-                        className="edit-btn"
-                        onClick={() => handleEdit(s)}
-                      >
-                        Edit
-                      </button>
-
-                      <button
-                        className="delete-btn"
-                        onClick={() => handleDelete(s.id)}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
         </div>
-      )}
 
-      {/* Modal */}
+        {loading ? (
+
+          <p>Loading schedules...</p>
+
+        ) : (
+
+          <div className="table-container">
+
+            <table className="schedule-table">
+
+              <thead>
+
+                <tr>
+                  <th>Class</th>
+                  <th>Trainer</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Capacity</th>
+                  <th>Actions</th>
+                </tr>
+
+              </thead>
+
+              <tbody>
+
+                {schedules.length === 0 ? (
+
+                  <tr>
+                    <td colSpan="6">No schedules found</td>
+                  </tr>
+
+                ) : (
+
+                  schedules.map((s) => {
+
+                    const trainerName =
+                      s.trainer_name ||
+                      trainers.find((t) => t.id === s.trainer)?.name ||
+                      "Unknown";
+
+                    return (
+
+                      <tr key={s.id}>
+
+                        <td><strong>{s.class_type}</strong></td>
+
+                        <td>{trainerName}</td>
+
+                        <td>
+                          {s.date
+                            ? new Date(s.date).toLocaleDateString()
+                            : "No Date"}
+                        </td>
+
+                        <td>{s.time}</td>
+
+                        <td>{s.capacity}</td>
+
+                        <td>
+
+                          <button
+                            className="edit-btn"
+                            onClick={() => handleEdit(s)}
+                          >
+                            Edit
+                          </button>
+
+                          <button
+                            className="delete-btn"
+                            onClick={() => handleDelete(s.id)}
+                          >
+                            Delete
+                          </button>
+
+                        </td>
+
+                      </tr>
+
+                    );
+
+                  })
+
+                )}
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        )}
+
+      </div>
+
+      {/* MODAL */}
+
       {showModal && (
+
         <div className="modal-overlay">
+
           <div className="plan-modal">
+
             <h3>{isEditing ? "Edit Schedule" : "Create Schedule"}</h3>
 
             <form onSubmit={handleSubmit}>
+
               <select
                 name="trainer"
                 value={formData.trainer}
                 onChange={handleChange}
                 required
               >
+
                 <option value="">Select Trainer</option>
 
                 {trainers.map((trainer) => (
+
                   <option key={trainer.id} value={trainer.id}>
                     {trainer.name}
                   </option>
+
                 ))}
+
               </select>
 
               <input
@@ -272,6 +411,7 @@ const Schedule = () => {
               />
 
               <div className="modal-buttons">
+
                 <button
                   type="button"
                   className="cancel-btn"
@@ -283,13 +423,22 @@ const Schedule = () => {
                 <button type="submit" className="save-btn">
                   {isEditing ? "Update" : "Save"}
                 </button>
+
               </div>
+
             </form>
+
           </div>
+
         </div>
+
       )}
+
     </div>
+
   );
+
 };
 
 export default Schedule;
+

@@ -67,7 +67,7 @@ const AdminDashboard = () => {
       <div className="sidebar">
 
         <div className="mb-5">
-            <h4 className="fw-bold mb-0 text-white">THE FIT TRIBE</h4>
+            <h4 className="fw-bold mb-0 text-white">THE FITNESS TRIBE</h4>
             <small className="text-success">Admin Panel</small>
         </div>
 
@@ -76,6 +76,9 @@ const AdminDashboard = () => {
           <a href="/admin/plans" className="nav-item-custom">Manage Plans</a>
           <a href="/admin/classes" className="nav-item-custom">Schedules</a>
           <a href="/admin/members" className="nav-item-custom">Members</a>
+          <a href="/admin/bookings" className="nav-item-custom">Bookings</a>
+          <a href="/admin/trainers" className="nav-item-custom">Manage Trainers</a>
+
         </nav>
 
         <div className="mt-auto border-top border-secondary pt-3">

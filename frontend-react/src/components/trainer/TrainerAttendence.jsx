@@ -7,7 +7,9 @@ import {
   Users,
   ClipboardCheck,
   Dumbbell,
-  LogOut
+  LogOut,
+  BookOpen,
+  UserCircle
 } from "lucide-react";
 
 const TrainerAttendance = () => {
@@ -31,7 +33,7 @@ const TrainerAttendance = () => {
     try {
 
       const res = await fetch(
-        "http://127.0.0.1:8000/api/members/",
+        "http://127.0.0.1:8000/api/trainer-booked-members/",
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -40,10 +42,16 @@ const TrainerAttendance = () => {
       );
 
       const data = await res.json();
-      setMembers(data);
+
+      if (Array.isArray(data)) {
+        setMembers(data);
+      } else {
+        setMembers([]);
+      }
 
     } catch (error) {
       console.error("Members error:", error);
+      setMembers([]);
     }
 
   };
@@ -70,11 +78,11 @@ const TrainerAttendance = () => {
 
   };
 
-  const markAttendance = (memberUserId, status) => {
+  const markAttendance = (memberId, status) => {
 
     setAttendance({
       ...attendance,
-      [memberUserId]: status
+      [memberId]: status
     });
 
   };
@@ -142,16 +150,24 @@ const TrainerAttendance = () => {
 
           <nav className="nav flex-column gap-2">
 
-            <a href="/trainer-dashboard" className="nav-link-custom">
-              <LayoutDashboard size={20}/> Dashboard
+           <a href="/trainer-dashboard" className="nav-link-custom">
+              <LayoutDashboard size={20} /> Dashboard
             </a>
 
             <a href="/trainer/classes" className="nav-link-custom">
-              <CalendarDays size={20}/> Classes
+              <CalendarDays size={20} /> My Classes
+            </a>
+
+            <a href="/trainer/bookings" className="nav-link-custom">
+              <BookOpen size={20} /> Bookings
             </a>
 
             <a href="/trainer/members" className="nav-link-custom">
-              <Users size={20}/> Members
+              <Users size={20} /> Members
+            </a>
+
+            <a href="/trainer/profile" className="nav-link-custom">
+              <UserCircle size={20} /> Profile
             </a>
 
             <a href="/trainer/attendance" className="nav-link-custom active">
@@ -226,34 +242,42 @@ const TrainerAttendance = () => {
 
               <tbody>
 
-                {members.map((member) => (
-
-                  <tr key={member.id}>
-
-                    <td>{member.username}</td>
-                    <td>{member.email}</td>
-
-                    <td>
-
-                      <button
-                        className="btn btn-success btn-sm me-2"
-                        onClick={() => markAttendance(member.user, "Present")}
-                      >
-                        Present
-                      </button>
-
-                      <button
-                        className="btn btn-danger btn-sm"
-                        onClick={() => markAttendance(member.user, "Absent")}
-                      >
-                        Absent
-                      </button>
-
+                {members.length === 0 ? (
+                  <tr>
+                    <td colSpan="3" className="text-center text-muted">
+                      No members booked your classes
                     </td>
-
                   </tr>
+                ) : (
+                  members.map((member) => (
 
-                ))}
+                    <tr key={member.id}>
+
+                      <td>{member.username}</td>
+                      <td>{member.email}</td>
+
+                      <td>
+
+                        <button
+                          className="btn btn-success btn-sm me-2"
+                          onClick={() => markAttendance(member.id, "Present")}
+                        >
+                          Present
+                        </button>
+
+                        <button
+                          className="btn btn-danger btn-sm"
+                          onClick={() => markAttendance(member.id, "Absent")}
+                        >
+                          Absent
+                        </button>
+
+                      </td>
+
+                    </tr>
+
+                  ))
+                )}
 
               </tbody>
 
@@ -277,4 +301,3 @@ const TrainerAttendance = () => {
 };
 
 export default TrainerAttendance;
-
