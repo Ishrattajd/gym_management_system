@@ -2,37 +2,53 @@
 
 A Full Stack Gym Management System built using React + Django REST Framework.
 The application allows admins, trainers, and members to manage gym activities such as class scheduling, bookings, attendance tracking, and workout suggestions.
+
 🚀 Features
+
 👤 Authentication
+
 User registration
 Login using JWT Authentication
 Role-based access control (Admin / Trainer / Member)
+
 🧑‍💼 Admin
+
 Manage members
 Manage trainers
 Create and manage membership plans
 View all class schedules
+
 🏋️ Trainer
+
 Create fitness classes
 View and manage their own classes
 Track attendance
 Suggest workouts to members
+
 🧑 Member
+
 View available classes
 Book gym classes
 Track bookings and attendance
 Receive workout suggestions
+
 🛠 Tech Stack
+
 Frontend
+
 React
 JavaScript
 Bootstrap
 Axios / Fetch API
+
 Backend
+
 Django
 Django REST Framework
 Simple JWT Authentication
+
 Database
+
 SQLite (Development)
 
 📂 Project Structure
@@ -79,6 +95,12 @@ Screenshots
 
 
 
+🔮 Future Improvements
 
+Payment integration
+Email notifications
+Real-time class availability
+Mobile responsive UI improvements
+Deployment using Docker and AWS
 
 
